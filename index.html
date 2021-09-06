@@ -27,13 +27,17 @@ window.onload = () => Alpine.start();
 <h1>jigインターン</h1>
 <div id=main>
 <div>高専生向けjig.jpのインターンプログラム。<br>
+（次回開催予定掲載、お楽しみに！）
+<!--
 <a href=https://jig.jp/topics/202104231200/>jigインターンオンライン2021夏</a></div>
 <a href=https://jig.jp/topics/202104231200/><img id="banner" src="img/2021intern_banner.png"></a><br>
+-->
 </div>
 
 <h2>歴代インターンのふりかえり (2012〜)</h2>
 <div x-data="{ tab: '2021s' }" id="tab_wrapper">
 <nav>
+  <a :class="{ 'active': tab === '2021' }" @click.prevent="tab = '2021'" href="#">2021夏オンライン</a>
   <a :class="{ 'active': tab === '2021s' }" @click.prevent="tab = '2021s'" href="#">2021春オンライン</a>
   <a :class="{ 'active': tab === '2021w' }" @click.prevent="tab = '2021w'" href="#">2021冬オンライン</a>
   <a :class="{ 'active': tab === '2020' }" @click.prevent="tab = '2020'" href="#">2020オンライン</a>
@@ -47,6 +51,17 @@ window.onload = () => Alpine.start();
   <a :class="{ 'active': tab === '2012long' }" @click.prevent="tab = '2012long'" href="#">2012長期</a>
   <a :class="{ 'active': tab === '2012' }" @click.prevent="tab = '2012'" href="#">2012</a>
 </nav>  
+
+<div x-show="tab === '2021'">
+  <h3>jigインターンブログ2021夏</h3>
+  <ul>
+    <li><a href=https://jigjp-diary.hatenablog.com/>⭐jigintern diary⭐</a></li>
+  </ul>
+  <h3>募集のお知らせ</h3>
+  <ul>
+    <li><a href=https://jig.jp/topics/202104231200/>2021年夏jig.jpインターンプログラム ～募集のお知らせ～</a></li>
+  </ul>
+</div>
 
 <div x-show="tab === '2021s'">
   <h3>jigインターンブログ2021春</h3>
