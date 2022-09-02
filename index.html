@@ -28,16 +28,8 @@ window.onload = () => Alpine.start();
 <div id=main>
 <div>高専生・学生向けjig.jpのインターンプログラム「jigインターン」<br>
 <br>
-今年は2年ぶりにリアル開催！
 クライアントとサーバーを駆使するWebアプリのチーム開発、伝授します。
 どこからでも気軽に参加できるオンラインインターンも！
-（応募期間7/20まで、ただし、定員達成次第終了）
-<br>
-<br>
-<a href=https://www.jig.jp/news/topics/202205111700>【福井県開催】2022jig.jp夏インターンシップ ～募集のお知らせ～</a></div>
-<a href=https://www.jig.jp/news/topics/202205111700><img id="banner" src=img/2022real.png></a><br>
-<a href=https://www.jig.jp/news/topics/202205101500>【オンライン】2022jig.jp夏インターンシップ ～募集のお知らせ～</a></div>
-<a href=https://www.jig.jp/news/topics/202205101500><img id="banner" src=img/2022online.png></a><br>
 </div>
 <!--
 <a href="https://jig.jp/topics/202112201200/">【オンライン開催】2022jig.jp冬インターンシップ ～募集のお知らせ～</a></div>
@@ -46,9 +38,10 @@ window.onload = () => Alpine.start();
 </div>
 
 <h2>歴代インターンのふりかえり (2012〜)</h2>
-<div x-data="{ tab: '2022w' }" id="tab_wrapper">
+<div x-data="{ tab: '2022s' }" id="tab_wrapper">
 <nav>
-  <a :class="{ 'active': tab === '2022' }" @click.prevent="tab = '2022w'" href="#">2022冬オンライン</a>
+  <a :class="{ 'active': tab === '2022s' }" @click.prevent="tab = '2022s'" href="#">2022夏</a>
+  <a :class="{ 'active': tab === '2022w' }" @click.prevent="tab = '2022w'" href="#">2022冬オンライン</a>
   <a :class="{ 'active': tab === '2021' }" @click.prevent="tab = '2021'" href="#">2021夏オンライン</a>
   <a :class="{ 'active': tab === '2021s' }" @click.prevent="tab = '2021s'" href="#">2021春オンライン</a>
   <a :class="{ 'active': tab === '2021w' }" @click.prevent="tab = '2021w'" href="#">2021冬オンライン</a>
@@ -63,6 +56,30 @@ window.onload = () => Alpine.start();
   <a :class="{ 'active': tab === '2012long' }" @click.prevent="tab = '2012long'" href="#">2012長期</a>
   <a :class="{ 'active': tab === '2012' }" @click.prevent="tab = '2012'" href="#">2012</a>
 </nav>  
+
+<div x-show="tab === '2022s'">
+  <h3>jigインターン2022夏</h3>
+  <ul>
+    <li><a href=https://jigjp-diary.hatenablog.com/>⭐jigintern diary⭐</a></li>
+      <li><a href=https://fukuno.jig.jp/3684>jigインターン発表会＆プルリク、技術深めるサイバーフライデー</a></li>
+      <li><a href=https://fukuno.jig.jp/3681>スマホの位置情報付き写真を使った、みんなで集める自販機オープンデータとHTMLだけで作れる地図アプリ</a></li>
+      <li><a href=https://fukuno.jig.jp/3680>まだまだ熱い夏、3年ぶりオフラインjigインターンスタート、環境省暑さ予測を地図表示するアプリ</a></li>
+      <li><a href=https://fukuno.jig.jp/3677>猛暑がテーマのjigインターン2022夏シーズン1発表会、気象庁の地点番号データを自動更新CSV化する方法 on GitHub</a></li>
+      <li><a href=https://fukuno.jig.jp/3673>DFFT実現のためのシンプルなライブラリ「DataWithTrust - TrustData.js」オープンソースで公開！</a></li>
+      <li><a href=https://fukuno.jig.jp/3686>jigインターン作品、Firebase x React による、写真で探す旅先「Insto Atlas」の起動方法とプルリク</a><br>
+    </ul>
+  <h3>募集のお知らせ</h3>
+  <ul>
+    <li>
+      <a href=https://www.jig.jp/news/topics/202205111700>【福井県開催】2022jig.jp夏インターンシップ ～募集のお知らせ～</a><br>
+      <a href=https://www.jig.jp/news/topics/202205111700><img id="banner" src=img/2022real.png></a>
+    </li>
+    <li>
+      <a href=https://www.jig.jp/news/topics/202205101500>【オンライン】2022jig.jp夏インターンシップ ～募集のお知らせ～</a><br>
+      <a href=https://www.jig.jp/news/topics/202205101500><img id="banner" src=img/2022online.png></a>
+    </li>
+   </ul>
+</div>
 
 <div x-show="tab === '2022w'">
   <h3>jigインターン2022冬</h3>
