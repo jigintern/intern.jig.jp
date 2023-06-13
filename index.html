@@ -1,231 +1,310 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width">
-<title>jigインターン / 高専生・学生向けjig.jpのインターンプログラム</title>
-<meta property="og:title" content="jigインターン / 高専生向けjig.jpのインターンプログラム">
-<meta property="og:description" content="元高専生による高専生のためのインターンプログラム「jigインターン」 by 株式会社jig.jp">
-<meta name="twitter:card" content="summary_large_image"/>
-<meta property="og:image"  content="https://intern.jig.jp/img/twitter_banner.png">
-<meta name="twitter:image" content="https://intern.jig.jp/img/twitter_banner.png">
-<link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura.css" type="text/css">
-<style>
-nav a {
-  margin: .5em .2em;
-  line-height: 2.3em;
-  background-color: #fff;
-  padding: .3em .5em;
-}
-#main {
-  margin-bottom: 1.5em;
-}
-</style>
-<script type=module>
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>jigインターン / 高専生・学生向けjig.jpのインターンプログラム</title>
+  <meta property="og:title" content="jigインターン / 高専生向けjig.jpのインターンプログラム">
+  <meta property="og:description" content="高専生・学生向けjig.jpのインターンプログラム「jigインターン」 by 株式会社jig.jp">
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta property="og:image" content="https://intern.jig.jp/img/2023_2w_intern_banner.png">
+  <meta name="twitter:image" content="https://intern.jig.jp/img/2023_2w_intern_banner.png">
+  <link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura.css" type="text/css">
+  <style>
+    nav a {
+      margin: .5em .2em;
+      line-height: 2.3em;
+      background-color: #fff;
+      padding: .3em .5em;
+    }
+
+    #main {
+      margin-bottom: 1.5em;
+    }
+  </style>
+  <script type=module>
 import Alpine from "https://taisukef.github.io/alpine_es/es/index.js";
 window.onload = () => Alpine.start();
 </script>
 </head>
 
 <body>
-<h1>jigインターン</h1>
-<div id=main>
-<div>高専生・学生向けjig.jpのインターンプログラム「jigインターン」<br>
-<br>
-クライアントとサーバーを駆使するWebアプリのチーム開発、伝授します。
-どこからでも気軽に参加できるオンラインインターンも！
-</div>
-<!--
-<a href="https://jig.jp/topics/202112201200/">【オンライン開催】2022jig.jp冬インターンシップ ～募集のお知らせ～</a></div>
-<a href="https://jig.jp/topics/202112201200/"><img id="banner" src="img/jig-internship_202112_topics.png"></a><br>
--->
-</div>
+  <h1>jigインターン</h1>
+  <div id=main>
+    <div>高専生・学生向けjig.jpのインターンプログラム「jigインターン」<br>
+      Denoを使用した、クライアントとサーバーを駆使するWebアプリのチーム開発、伝授します。<br>
+    </div>
+  </div>
 
-<h2>歴代インターンのふりかえり (2012〜)</h2>
-<div x-data="{ tab: '2022s' }" id="tab_wrapper">
-<nav>
-  <a :class="{ 'active': tab === '2022s' }" @click.prevent="tab = '2022s'" href="#">2022夏</a>
-  <a :class="{ 'active': tab === '2022w' }" @click.prevent="tab = '2022w'" href="#">2022冬オンライン</a>
-  <a :class="{ 'active': tab === '2021' }" @click.prevent="tab = '2021'" href="#">2021夏オンライン</a>
-  <a :class="{ 'active': tab === '2021s' }" @click.prevent="tab = '2021s'" href="#">2021春オンライン</a>
-  <a :class="{ 'active': tab === '2021w' }" @click.prevent="tab = '2021w'" href="#">2021冬オンライン</a>
-  <a :class="{ 'active': tab === '2020' }" @click.prevent="tab = '2020'" href="#">2020オンライン</a>
-  <a :class="{ 'active': tab === '2019' }" @click.prevent="tab = '2019'" href="#">2019</a>
-  <a :class="{ 'active': tab === '2018' }" @click.prevent="tab = '2018'" href="#">2018</a>
-  <a :class="{ 'active': tab === '2017' }" @click.prevent="tab = '2017'" href="#">2017</a>
-  <a :class="{ 'active': tab === '2016' }" @click.prevent="tab = '2016'" href="#">2016</a>
-  <a :class="{ 'active': tab === '2015' }" @click.prevent="tab = '2015'" href="#">2015</a>
-  <a :class="{ 'active': tab === '2014' }" @click.prevent="tab = '2014'" href="#">2014</a>
-  <a :class="{ 'active': tab === '2013' }" @click.prevent="tab = '2013'" href="#">2013</a>
-  <a :class="{ 'active': tab === '2012long' }" @click.prevent="tab = '2012long'" href="#">2012長期</a>
-  <a :class="{ 'active': tab === '2012' }" @click.prevent="tab = '2012'" href="#">2012</a>
-</nav>  
-
-<div x-show="tab === '2022s'">
-  <h3>jigインターン2022夏</h3>
-  <ul>
-    <li><a href=https://jigjp-diary.hatenablog.com/>⭐jigintern diary⭐</a></li>
-      <li><a href=https://fukuno.jig.jp/3684>jigインターン発表会＆プルリク、技術深めるサイバーフライデー</a></li>
-      <li><a href=https://fukuno.jig.jp/3681>スマホの位置情報付き写真を使った、みんなで集める自販機オープンデータとHTMLだけで作れる地図アプリ</a></li>
-      <li><a href=https://fukuno.jig.jp/3680>まだまだ熱い夏、3年ぶりオフラインjigインターンスタート、環境省暑さ予測を地図表示するアプリ</a></li>
-      <li><a href=https://fukuno.jig.jp/3677>猛暑がテーマのjigインターン2022夏シーズン1発表会、気象庁の地点番号データを自動更新CSV化する方法 on GitHub</a></li>
-      <li><a href=https://fukuno.jig.jp/3673>DFFT実現のためのシンプルなライブラリ「DataWithTrust - TrustData.js」オープンソースで公開！</a></li>
-      <li><a href=https://fukuno.jig.jp/3686>jigインターン作品、Firebase x React による、写真で探す旅先「Insto Atlas」の起動方法とプルリク</a><br>
-    </ul>
-  <h3>募集のお知らせ</h3>
+  <h2>2023夏インターン、参加者募集中！</h2>
+  <img src="img/2023_2w_intern_banner.png" alt="2weeks_intern_banner">
+  <img src="img/2023_1w_intern_banner.png" alt="1weeks_intern_banner">
+  <div>
+    3～4名のチームに分かれて、Webブラウザ上で動作するアプリをチーム開発し、テーマに沿ったアプリの完成を目指します。<br>
+    開発以外にも、社内ツアーやプレゼントボックスの開封など、楽しめるコンテンツが盛りだくさんです。<br>
+    福野とエンジニア社員によるバックアップもあるので、安心してご参加下さい。
+  </div>
+  <h4>詳細・申し込みはこちらからどうぞ(7/21まで)</h4>
   <ul>
     <li>
-      <a href=https://www.jig.jp/news/topics/202205111700>【福井県開催】2022jig.jp夏インターンシップ ～募集のお知らせ～</a><br>
-      <a href=https://www.jig.jp/news/topics/202205111700><img id="banner" src=img/2022real.png></a>
+      <a href=https://www.jig.jp/news/topics/20230522_01>2週間オンライン</a>
+      <ul>
+        <li>2023/8/14(月)～25(金)</li>
+        <li>2023/8/28(月)～9/8(金)</li>
+      </ul>
     </li>
     <li>
-      <a href=https://www.jig.jp/news/topics/202205101500>【オンライン】2022jig.jp夏インターンシップ ～募集のお知らせ～</a><br>
-      <a href=https://www.jig.jp/news/topics/202205101500><img id="banner" src=img/2022online.png></a>
+      <a href=https://www.jig.jp/news/topics/20230605_01>1週間オンライン</a>
+      <ul>
+        <li>2023/8/14(月)～18(金)</li>
+        <li>2023/8/28(月)～9/1(金)</li>
+      </ul>
     </li>
-   </ul>
-</div>
+  </ul>
 
-<div x-show="tab === '2022w'">
-  <h3>jigインターン2022冬</h3>
-  <ul>
-    <li><a href=https://fukuno.jig.jp/3514>サーバーの異常をWebPushで受け取ろう、オンライン開催ショートjigインターンスタート</a></li>
-  </ul>
-  <h3>募集のお知らせ</h3>
-  <ul>
-    <li><a href="https://jig.jp/topics/202112201200/">【オンライン開催】2022jig.jp冬インターンシップ ～募集のお知らせ～</a></li>
-   </ul>
-</div>
+  <h2>歴代インターンのふりかえり (2012〜)</h2>
+  <div x-data="{ tab: '2023s' }" id="tab_wrapper">
+    <nav>
+      <a :class="{ 'active': tab === '2023s' }" @click.prevent="tab = '2023s'" href="#">2023春</a>
+      <a :class="{ 'active': tab === '2022s' }" @click.prevent="tab = '2022s'" href="#">2022夏</a>
+      <a :class="{ 'active': tab === '2022w' }" @click.prevent="tab = '2022w'" href="#">2022冬オンライン</a>
+      <a :class="{ 'active': tab === '2021' }" @click.prevent="tab = '2021'" href="#">2021夏オンライン</a>
+      <a :class="{ 'active': tab === '2021s' }" @click.prevent="tab = '2021s'" href="#">2021春オンライン</a>
+      <a :class="{ 'active': tab === '2021w' }" @click.prevent="tab = '2021w'" href="#">2021冬オンライン</a>
+      <a :class="{ 'active': tab === '2020' }" @click.prevent="tab = '2020'" href="#">2020オンライン</a>
+      <a :class="{ 'active': tab === '2019' }" @click.prevent="tab = '2019'" href="#">2019</a>
+      <a :class="{ 'active': tab === '2018' }" @click.prevent="tab = '2018'" href="#">2018</a>
+      <a :class="{ 'active': tab === '2017' }" @click.prevent="tab = '2017'" href="#">2017</a>
+      <a :class="{ 'active': tab === '2016' }" @click.prevent="tab = '2016'" href="#">2016</a>
+      <a :class="{ 'active': tab === '2015' }" @click.prevent="tab = '2015'" href="#">2015</a>
+      <a :class="{ 'active': tab === '2014' }" @click.prevent="tab = '2014'" href="#">2014</a>
+      <a :class="{ 'active': tab === '2013' }" @click.prevent="tab = '2013'" href="#">2013</a>
+      <a :class="{ 'active': tab === '2012long' }" @click.prevent="tab = '2012long'" href="#">2012長期</a>
+      <a :class="{ 'active': tab === '2012' }" @click.prevent="tab = '2012'" href="#">2012</a>
+    </nav>
 
-<div x-show="tab === '2021'">
-  <h3>jigインターンブログ2021夏</h3>
-  <ul>
-    <li><a href=https://jigjp-diary.hatenablog.com/>⭐jigintern diary⭐</a></li>
-  </ul>
-  <h3>募集のお知らせ</h3>
-  <ul>
-    <li><a href=https://jig.jp/topics/202104231200/>2021年夏jig.jpインターンプログラム ～募集のお知らせ～</a></li>
-  </ul>
-</div>
+    <div x-show="tab === '2023s'">
+      <h3>jigインターン2023春</h3>
+      <ul>
+        <li><a href=https://jigjp-diary.hatenablog.com />⭐jigintern diary⭐</a></li>
+      </ul>
+      <h3>募集のお知らせ</h3>
+      <ul>
+        <li>
+          <a href=https://www.jig.jp/news/topics/202212011000_02>【オンライン開催】2023jig.jp春インターンシップ ～募集のお知らせ～</a><br>
+          <a href=https://www.jig.jp/news/topics/202212011000_02><img id="banner" src=img/2023spring.png></a>
+        </li>
+      </ul>
+    </div>
 
-<div x-show="tab === '2021s'">
-  <h3>jigインターンブログ2021春</h3>
-  <ul>
-    <li><a href=https://fukuno.jig.jp/3155>優勝者には Oculus Quest 2! 春休みの挑戦、jigインターン2021春募集開始、intern.jig.jp on GitHub 始動 / 福野泰介の一日一創</a></li>
-  </ul>
-  <h3>募集のお知らせ</h3>
-  <ul>
-    <li><a href=https://jig.jp/topics/202103151700/>2021年春jig.jpインターンプログラム ～募集のお知らせ～</a></li>
-  </ul>
-</div>
+    <div x-show="tab === '2022s'">
+      <h3>jigインターン2022夏</h3>
+      <ul>
+        <li><a href=https://jigjp-diary.hatenablog.com />⭐jigintern diary⭐</a></li>
+        <li><a href=https://fukuno.jig.jp/3684>jigインターン発表会＆プルリク、技術深めるサイバーフライデー</a></li>
+        <li><a href=https://fukuno.jig.jp/3681>スマホの位置情報付き写真を使った、みんなで集める自販機オープンデータとHTMLだけで作れる地図アプリ</a></li>
+        <li><a href=https://fukuno.jig.jp/3680>まだまだ熱い夏、3年ぶりオフラインjigインターンスタート、環境省暑さ予測を地図表示するアプリ</a></li>
+        <li><a href=https://fukuno.jig.jp/3677>猛暑がテーマのjigインターン2022夏シーズン1発表会、気象庁の地点番号データを自動更新CSV化する方法 on GitHub</a></li>
+        <li><a href=https://fukuno.jig.jp/3673>DFFT実現のためのシンプルなライブラリ「DataWithTrust - TrustData.js」オープンソースで公開！</a></li>
+        <li><a href=https://fukuno.jig.jp/3686>jigインターン作品、Firebase x React による、写真で探す旅先「Insto Atlas」の起動方法とプルリク</a><br>
+      </ul>
+      <h3>募集のお知らせ</h3>
+      <ul>
+        <li>
+          <a href=https://www.jig.jp/news/topics/202205111700>【福井県開催】2022jig.jp夏インターンシップ ～募集のお知らせ～</a><br>
+          <a href=https://www.jig.jp/news/topics/202205111700><img id="banner" src=img/2022real.png></a>
+        </li>
+        <li>
+          <a href=https://www.jig.jp/news/topics/202205101500>【オンライン】2022jig.jp夏インターンシップ ～募集のお知らせ～</a><br>
+          <a href=https://www.jig.jp/news/topics/202205101500><img id="banner" src=img/2022online.png></a>
+        </li>
+      </ul>
+    </div>
 
-<div x-show="tab === '2021w'">
-  <h3>jigインターンブログ2021冬 (作品プルリク)</h3>
-  <ul>
-    <li><a href=https://fukuno.jig.jp/3137>Denoでかんたん、フロント＆バックエンド超入門 in JavaScript、jigインターン勉強会 / 福野泰介の一日一創</a></li>
-    <li><a href=https://fukuno.jig.jp/3138>jigインターンオンライン発表会、優勝作品「切り抜きまとめサイト(仮)」をリファクタリング / 福野泰介の一日一創</a></li>
-    <li><a href=https://fukuno.jig.jp/3139>jigインターンオンライン作品「BazUp!!」でバズった状態を体験！ / 福野泰介の一日一創</a></li>
-    <li><a href=https://fukuno.jig.jp/3140>jigインターンオンライン作品「登下校タイムアタック!」に、Geo3x3適応 / 福野泰介の一日一創</a></li>
-    <li><a href=https://fukuno.jig.jp/3141>5チーム中3チームが高専生、10回目の起業家甲子園とjigインターン作品のお手軽デザイン適応 / 福野泰介の一日一創</a></li>
-    <li><a href=https://fukuno.jig.jp/3142>長野高専OBのIT農家、起業家万博で発表「ベジスター」とjigインターン作品「炎上チェッカー」のコラボ!? / 福野泰介の一日一創</a></li>
-  </ul>
-  <h3>募集のお知らせ</h3>
-  <ul>
-    <li><a href=https://jig.jp/topics/202012252000/>2021年冬jig.jpインターンプログラム ～募集のお知らせ～</a></li>
-  </ul>
-</div>
-<div x-show="tab === '2020'">
-  <h3>jigインターンブログ2020</h3>
-  <ul>
-    <li><a href=https://jigintern2020.hatenablog.com/entry/2020/08/17/223702>jig.jpオンラインインターン始まります！ - jigintern2020’s diary</a></li>
-    <li><a href=https://jigintern2020.hatenablog.com/entry/2020/08/18/200032>Jig.jpオンラインインターン2020 2日目！ - jigintern2020’s diary</a></li>
-    <li><a href=https://jigintern2020.hatenablog.com/entry/2020/08/19/213340>jig.jpオンラインインターン2020 3日目！ - jigintern2020’s diary</a></li>
-    <li><a href=https://jigintern2020.hatenablog.com/entry/2020/08/20/205039>jig.jpオンラインインターン2020 4日目！ - jigintern2020’s diary</a></li>
-    <li><a href=https://jigintern2020.hatenablog.com/entry/2020/08/21/192214>jig.jpオンラインインターン2020 5日目！ - jigintern2020’s diary</a></li>
-    <li><a href=https://jigintern2020.hatenablog.com/entry/2020/08/21/230425>jig.jpオンラインインターン2020 一週間の振り返り！byぷりん - jigintern2020’s diary</a></li>
-    <li><a href=https://jigintern2020.hatenablog.com/entry/2020/08/23/134458>jig.jpオンラインインターン2020 一週間の振り返り　byうるし - jigintern2020’s diary</a></li>
-    <li><a href=https://jigintern2020.hatenablog.com/entry/2020/08/24/222124>jig.jpオンラインインターン2020 6日目！ - jigintern2020’s diary</a></li>
-    <li><a href=https://jigintern2020.hatenablog.com/entry/2020/08/25/003345>jig.jp オンラインインターン@2020前半戦振り返り byほっぴー - jigintern2020’s diary</a></li>
-    <li><a href=https://jigintern2020.hatenablog.com/entry/2020/08/25/232134>jig.jpオンラインインターン2020 7日目！ - jigintern2020’s diary</a></li>
-    <li><a href=https://jigintern2020.hatenablog.com/entry/2020/08/26/231116>jig.jpオンラインインターン2020 8日目！ - jigintern2020’s diary</a></li>
-    <li><a href=https://jigintern2020.hatenablog.com/entry/2020/08/27/224635>jig.jpオンラインインターン2020 9日目！ - jigintern2020’s diary</a></li>
-    <li><a href=https://jigintern2020.hatenablog.com/entry/2020/08/28/222048>jig.jpオンラインインターン2020最終日 - jigintern2020’s diary</a></li>
-    <li><a href=https://jigintern2020.hatenablog.com/entry/2020/08/28/232711>jig.jpオンラインインターン2020 振り返り　byうるし - jigintern2020’s diary</a></li>
-    <li><a href=https://jigintern2020.hatenablog.com/entry/2020/08/29/190001>短かった2週間 by すずとも - jigインターン2020 - jigintern2020’s diary</a></li>
-    <li><a href=https://jigintern2020.hatenablog.com/entry/2020/08/29/220014>jig.jpオンラインインターン2020　振り返りbyもしゃ - jigintern2020’s diary</la></li>
-    <li><a href=https://jigintern2020.hatenablog.com/entry/2020/08/30/005420>jig.jpオンラインインターン2020 振り返り by みっちー - jigintern2020’s diary</a></li>
-    <li><a href=https://jigintern2020.hatenablog.com/entry/2020/08/30/171646>jig.jpオンラインインターン2020 振り返り by はーど - jigintern2020’s diary</a></li>
-    <li><a href=https://jigintern2020.hatenablog.com/entry/2020/08/30/204611>jig.jpオンラインインターン2020 二週間の振り返り byぷりん - jigintern2020’s diary</a></li>
-    <li><a href=https://jigintern2020.hatenablog.com/entry/2020/08/30/213557>jig.jpオンラインインターン2020 振り返り by ぷれーん - jigintern2020’s diary</a></li>
-    <li><a href=https://jigintern2020.hatenablog.com/entry/2020/08/31/033155>楽しかった byぴんぽん - jig.jpオンラインインターン2020 - jigintern2020’s diary</a></li>
-    <li><a href=https://jigintern2020.hatenablog.com/entry/2020/08/31/054051>jigオンラインインターン2020振り返り by ほどた - jigintern2020’s diary</a></li>
-    <li><a href=https://jigintern2020.hatenablog.com/entry/2020/08/31/224234>jig.jpオンラインインターン備忘録 - jigintern2020’s diary</a></li>
-    </ul>
-</div>
-<div x-show="tab === '2019'">
-  <h3>jigインターンブログ2019</h3>
-  <ul>
-    <li><a href=https://jigintern2019.hatenablog.com/entry/2019/08/20/001433>jig.jpインターン 2019 スタート！！ - jigintern2019のブログ</a></li>
-  </ul>
-</div>
+    <div x-show="tab === '2022w'">
+      <h3>jigインターン2022冬</h3>
+      <ul>
+        <li><a href=https://fukuno.jig.jp/3514>サーバーの異常をWebPushで受け取ろう、オンライン開催ショートjigインターンスタート</a></li>
+      </ul>
+      <h3>募集のお知らせ</h3>
+      <ul>
+        <li><a href="https://jig.jp/topics/202112201200/">【オンライン開催】2022jig.jp冬インターンシップ ～募集のお知らせ～</a></li>
+      </ul>
+    </div>
 
-<div x-show="tab === '2018'">
-  <h3>jigインターンブログ2018</h3>
-  <ul>
-    <li><a href=https://jigintern2018.hatenablog.com/entry/2018/08/21/000558>jig.jp インターン2018始まります！ - jigintern2018’s diary</a></li>
-  </ul>
-</div>
+    <div x-show="tab === '2021'">
+      <h3>jigインターンブログ2021夏</h3>
+      <ul>
+        <li><a href=https://jigjp-diary.hatenablog.com />⭐jigintern diary⭐</a></li>
+      </ul>
+      <h3>募集のお知らせ</h3>
+      <ul>
+        <li><a href=https://jig.jp/topics/202104231200 />2021年夏jig.jpインターンプログラム ～募集のお知らせ～</a></li>
+      </ul>
+    </div>
 
-<div x-show="tab === '2017'">
-  <h3>jigインターンブログ2017</h3>
-  <ul>
-    <li><a href=http://jigintern2017.hatenablog.com/entry/2017/08/22/010232>今年も始まりましたjigintern!!! - jigintern2017の日記</a></li>
-  </ul>
-</div>
+    <div x-show="tab === '2021s'">
+      <h3>jigインターンブログ2021春</h3>
+      <ul>
+        <li><a href=https://fukuno.jig.jp/3155>優勝者には Oculus Quest 2! 春休みの挑戦、jigインターン2021春募集開始、intern.jig.jp on GitHub 始動
+            / 福野泰介の一日一創</a></li>
+      </ul>
+      <h3>募集のお知らせ</h3>
+      <ul>
+        <li><a href=https://jig.jp/topics/202103151700 />2021年春jig.jpインターンプログラム ～募集のお知らせ～</a></li>
+      </ul>
+    </div>
 
-<div x-show="tab === '2016'">
-  <h3>jigインターンブログ2016</h3>
-  <ul>
-    <li><a href=http://jigintern2016.hatenablog.com/entry/2016/08/22/235054>「怒涛のインターン」の始まり - jigintern2016’s diary</a></li>
-  </ul>
-</div>
+    <div x-show="tab === '2021w'">
+      <h3>jigインターンブログ2021冬 (作品プルリク)</h3>
+      <ul>
+        <li><a href=https://fukuno.jig.jp/3137>Denoでかんたん、フロント＆バックエンド超入門 in JavaScript、jigインターン勉強会 / 福野泰介の一日一創</a></li>
+        <li><a href=https://fukuno.jig.jp/3138>jigインターンオンライン発表会、優勝作品「切り抜きまとめサイト(仮)」をリファクタリング / 福野泰介の一日一創</a></li>
+        <li><a href=https://fukuno.jig.jp/3139>jigインターンオンライン作品「BazUp!!」でバズった状態を体験！ / 福野泰介の一日一創</a></li>
+        <li><a href=https://fukuno.jig.jp/3140>jigインターンオンライン作品「登下校タイムアタック!」に、Geo3x3適応 / 福野泰介の一日一創</a></li>
+        <li><a href=https://fukuno.jig.jp/3141>5チーム中3チームが高専生、10回目の起業家甲子園とjigインターン作品のお手軽デザイン適応 / 福野泰介の一日一創</a></li>
+        <li><a href=https://fukuno.jig.jp/3142>長野高専OBのIT農家、起業家万博で発表「ベジスター」とjigインターン作品「炎上チェッカー」のコラボ!? / 福野泰介の一日一創</a>
+        </li>
+      </ul>
+      <h3>募集のお知らせ</h3>
+      <ul>
+        <li><a href=https://jig.jp/topics/202012252000 />2021年冬jig.jpインターンプログラム ～募集のお知らせ～</a></li>
+      </ul>
+    </div>
+    <div x-show="tab === '2020'">
+      <h3>jigインターンブログ2020</h3>
+      <ul>
+        <li><a href=https://jigintern2020.hatenablog.com/entry/2020/08/17/223702>jig.jpオンラインインターン始まります！ -
+            jigintern2020’s diary</a></li>
+        <li><a href=https://jigintern2020.hatenablog.com/entry/2020/08/18/200032>Jig.jpオンラインインターン2020 2日目！ -
+            jigintern2020’s diary</a></li>
+        <li><a href=https://jigintern2020.hatenablog.com/entry/2020/08/19/213340>jig.jpオンラインインターン2020 3日目！ -
+            jigintern2020’s diary</a></li>
+        <li><a href=https://jigintern2020.hatenablog.com/entry/2020/08/20/205039>jig.jpオンラインインターン2020 4日目！ -
+            jigintern2020’s diary</a></li>
+        <li><a href=https://jigintern2020.hatenablog.com/entry/2020/08/21/192214>jig.jpオンラインインターン2020 5日目！ -
+            jigintern2020’s diary</a></li>
+        <li><a href=https://jigintern2020.hatenablog.com/entry/2020/08/21/230425>jig.jpオンラインインターン2020 一週間の振り返り！byぷりん -
+            jigintern2020’s diary</a></li>
+        <li><a href=https://jigintern2020.hatenablog.com/entry/2020/08/23/134458>jig.jpオンラインインターン2020 一週間の振り返り　byうるし -
+            jigintern2020’s diary</a></li>
+        <li><a href=https://jigintern2020.hatenablog.com/entry/2020/08/24/222124>jig.jpオンラインインターン2020 6日目！ -
+            jigintern2020’s diary</a></li>
+        <li><a href=https://jigintern2020.hatenablog.com/entry/2020/08/25/003345>jig.jp オンラインインターン@2020前半戦振り返り byほっぴー -
+            jigintern2020’s diary</a></li>
+        <li><a href=https://jigintern2020.hatenablog.com/entry/2020/08/25/232134>jig.jpオンラインインターン2020 7日目！ -
+            jigintern2020’s diary</a></li>
+        <li><a href=https://jigintern2020.hatenablog.com/entry/2020/08/26/231116>jig.jpオンラインインターン2020 8日目！ -
+            jigintern2020’s diary</a></li>
+        <li><a href=https://jigintern2020.hatenablog.com/entry/2020/08/27/224635>jig.jpオンラインインターン2020 9日目！ -
+            jigintern2020’s diary</a></li>
+        <li><a href=https://jigintern2020.hatenablog.com/entry/2020/08/28/222048>jig.jpオンラインインターン2020最終日 -
+            jigintern2020’s diary</a></li>
+        <li><a href=https://jigintern2020.hatenablog.com/entry/2020/08/28/232711>jig.jpオンラインインターン2020 振り返り　byうるし -
+            jigintern2020’s diary</a></li>
+        <li><a href=https://jigintern2020.hatenablog.com/entry/2020/08/29/190001>短かった2週間 by すずとも - jigインターン2020 -
+            jigintern2020’s diary</a></li>
+        <li><a href=https://jigintern2020.hatenablog.com/entry/2020/08/29/220014>jig.jpオンラインインターン2020　振り返りbyもしゃ -
+            jigintern2020’s diary</la>
+        </li>
+        <li><a href=https://jigintern2020.hatenablog.com/entry/2020/08/30/005420>jig.jpオンラインインターン2020 振り返り by みっちー -
+            jigintern2020’s diary</a></li>
+        <li><a href=https://jigintern2020.hatenablog.com/entry/2020/08/30/171646>jig.jpオンラインインターン2020 振り返り by はーど -
+            jigintern2020’s diary</a></li>
+        <li><a href=https://jigintern2020.hatenablog.com/entry/2020/08/30/204611>jig.jpオンラインインターン2020 二週間の振り返り byぷりん -
+            jigintern2020’s diary</a></li>
+        <li><a href=https://jigintern2020.hatenablog.com/entry/2020/08/30/213557>jig.jpオンラインインターン2020 振り返り by ぷれーん -
+            jigintern2020’s diary</a></li>
+        <li><a href=https://jigintern2020.hatenablog.com/entry/2020/08/31/033155>楽しかった byぴんぽん - jig.jpオンラインインターン2020 -
+            jigintern2020’s diary</a></li>
+        <li><a href=https://jigintern2020.hatenablog.com/entry/2020/08/31/054051>jigオンラインインターン2020振り返り by ほどた -
+            jigintern2020’s diary</a></li>
+        <li><a href=https://jigintern2020.hatenablog.com/entry/2020/08/31/224234>jig.jpオンラインインターン備忘録 - jigintern2020’s
+            diary</a></li>
+      </ul>
+    </div>
+    <div x-show="tab === '2019'">
+      <h3>jigインターンブログ2019</h3>
+      <ul>
+        <li><a href=https://jigintern2019.hatenablog.com/entry/2019/08/20/001433>jig.jpインターン 2019 スタート！！ -
+            jigintern2019のブログ</a></li>
+      </ul>
+    </div>
 
-<div x-show="tab === '2015'">
-  <h3>jigインターンブログ2015</h3>
-  <ul>
-    <li><a href=http://jigintern2015.hatenablog.com/entry/2015/08/17/235105>インターン初日!! - jigintern2015’s blog</a></li>
-  </ul>
-</div>
+    <div x-show="tab === '2018'">
+      <h3>jigインターンブログ2018</h3>
+      <ul>
+        <li><a href=https://jigintern2018.hatenablog.com/entry/2018/08/21/000558>jig.jp インターン2018始まります！ -
+            jigintern2018’s diary</a></li>
+      </ul>
+    </div>
 
-<div x-show="tab === '2014'">
-  <h3>jigインターンブログ2014</h3>
-  <ul>
-    <li><a href=http://jigintern2014.hatenablog.com/entry/2014/08/19/005413>jig.jpインターン初日ですよ！【きっき】 - jigintern2014’s diary</a></li>
-  </ul>
-</div>
+    <div x-show="tab === '2017'">
+      <h3>jigインターンブログ2017</h3>
+      <ul>
+        <li><a href=http://jigintern2017.hatenablog.com/entry/2017/08/22/010232>今年も始まりましたjigintern!!! -
+            jigintern2017の日記</a></li>
+      </ul>
+    </div>
 
-<div x-show="tab === '2013'">
-  <h3>jigインターンブログ2013</h3>
-  <ul>
-    <li><a href=http://jigintern2013.hatenablog.com/entry/2013/08/19/235426>全国の高専生が鯖江に集合！（活動1日目） - jig.jp インターンシップ 2013 活動記録</a></li>
-  </ul>
-</div>
+    <div x-show="tab === '2016'">
+      <h3>jigインターンブログ2016</h3>
+      <ul>
+        <li><a href=http://jigintern2016.hatenablog.com/entry/2016/08/22/235054>「怒涛のインターン」の始まり - jigintern2016’s
+            diary</a></li>
+      </ul>
+    </div>
 
-<div x-show="tab === '2012long'">
-  <h3>jigインターンブログ2012長期</h3>
-  <ul>
-    <li><a href=http://jigintern2012.hatenablog.com/entry/2012/10/03/224016>jig.jp学生インターンプログラム2012（長期）開始 - jig.jp internship 2012</a></li>
-  </ul>
-</div>
+    <div x-show="tab === '2015'">
+      <h3>jigインターンブログ2015</h3>
+      <ul>
+        <li><a href=http://jigintern2015.hatenablog.com/entry/2015/08/17/235105>インターン初日!! - jigintern2015’s blog</a>
+        </li>
+      </ul>
+    </div>
 
-<div x-show="tab === '2012'">
-  <h3>jigインターンブログ2012</h3>
-  <ul>
-    <li><a href=http://jigintern2012.hatenablog.com/entry/2012/08/20/210000>ガイダンス+歓迎会 - jig.jp internship 2012</a></li>
-  </ul>
-</div>
+    <div x-show="tab === '2014'">
+      <h3>jigインターンブログ2014</h3>
+      <ul>
+        <li><a href=http://jigintern2014.hatenablog.com/entry/2014/08/19/005413>jig.jpインターン初日ですよ！【きっき】 - jigintern2014’s
+            diary</a></li>
+      </ul>
+    </div>
 
-</div>
+    <div x-show="tab === '2013'">
+      <h3>jigインターンブログ2013</h3>
+      <ul>
+        <li><a href=http://jigintern2013.hatenablog.com/entry/2013/08/19/235426>全国の高専生が鯖江に集合！（活動1日目） - jig.jp インターンシップ
+            2013 活動記録</a></li>
+      </ul>
+    </div>
 
-<footer>
-Website: CC BY <a href=https://jig.jp/>jig.jp</a> (<a href=https://github.com/jigintern/intern.jig.jp/>src on GitHub</a>)<br>
-Lib: <a href=https://fukuno.jig.jp/3143>Alpine_es</a> (<a href=https://github.com/alpinejs/alpine>Alpine.js</a> ES module version)<br>
-</fotter>
+    <div x-show="tab === '2012long'">
+      <h3>jigインターンブログ2012長期</h3>
+      <ul>
+        <li><a href=http://jigintern2012.hatenablog.com/entry/2012/10/03/224016>jig.jp学生インターンプログラム2012（長期）開始 - jig.jp
+            internship 2012</a></li>
+      </ul>
+    </div>
+
+    <div x-show="tab === '2012'">
+      <h3>jigインターンブログ2012</h3>
+      <ul>
+        <li><a href=http://jigintern2012.hatenablog.com/entry/2012/08/20/210000>ガイダンス+歓迎会 - jig.jp internship 2012</a>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+  <footer>
+    Website: CC BY <a href=https://jig.jp />jig.jp</a> (<a href=https://github.com/jigintern/intern.jig.jp />src on
+    GitHub</a>)<br>
+    Lib: <a href=https://fukuno.jig.jp/3143>Alpine_es</a> (<a href=https://github.com/alpinejs/alpine>Alpine.js</a> ES
+    module version)<br>
+    </fotter>
 
 </body>
+
 </html>
