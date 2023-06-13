@@ -45,16 +45,28 @@ window.onload = () => Alpine.start();
     開発以外にも、社内ツアーやプレゼントボックスの開封など、楽しめるコンテンツが盛りだくさんです。<br>
     福野とエンジニア社員によるバックアップもあるので、安心してご参加下さい。
   </div>
-  <h4>詳細・申し込みはこちらからどうぞ</h4>
+  <h4>詳細・申し込みはこちらからどうぞ(7/21まで)</h4>
   <ul>
-    <li><a href="https://www.jig.jp/news/topics/20230522_01">2週間オンライン</a></li>
-    <li><a href="http://https://www.jig.jp/news/topics/20230605_01">1週間オンライン</a></li>
+    <li>
+      <a href=https://www.jig.jp/news/topics/20230522_01>2週間オンライン</a>
+      <ul>
+        <li>2023/8/14(月)～25(金)</li>
+        <li>2023/8/28(月)～9/8(金)</li>
+      </ul>
+    </li>
+    <li>
+      <a href=https://www.jig.jp/news/topics/20230605_01>1週間オンライン</a>
+      <ul>
+        <li>2023/8/14(月)～18(金)</li>
+        <li>2023/8/28(月)～9/1(金)</li>
+      </ul>
+    </li>
   </ul>
 
-
   <h2>歴代インターンのふりかえり (2012〜)</h2>
-  <div x-data="{ tab: '2022s' }" id="tab_wrapper">
+  <div x-data="{ tab: '2023s' }" id="tab_wrapper">
     <nav>
+      <a :class="{ 'active': tab === '2023s' }" @click.prevent="tab = '2023s'" href="#">2023春</a>
       <a :class="{ 'active': tab === '2022s' }" @click.prevent="tab = '2022s'" href="#">2022夏</a>
       <a :class="{ 'active': tab === '2022w' }" @click.prevent="tab = '2022w'" href="#">2022冬オンライン</a>
       <a :class="{ 'active': tab === '2021' }" @click.prevent="tab = '2021'" href="#">2021夏オンライン</a>
@@ -71,6 +83,20 @@ window.onload = () => Alpine.start();
       <a :class="{ 'active': tab === '2012long' }" @click.prevent="tab = '2012long'" href="#">2012長期</a>
       <a :class="{ 'active': tab === '2012' }" @click.prevent="tab = '2012'" href="#">2012</a>
     </nav>
+
+    <div x-show="tab === '2023s'">
+      <h3>jigインターン2023春</h3>
+      <ul>
+        <li><a href=https://jigjp-diary.hatenablog.com />⭐jigintern diary⭐</a></li>
+      </ul>
+      <h3>募集のお知らせ</h3>
+      <ul>
+        <li>
+          <a href=https://www.jig.jp/news/topics/202212011000_02>【オンライン開催】2023jig.jp春インターンシップ ～募集のお知らせ～</a><br>
+          <a href=https://www.jig.jp/news/topics/202212011000_02><img id="banner" src=img/2023spring.png></a>
+        </li>
+      </ul>
+    </div>
 
     <div x-show="tab === '2022s'">
       <h3>jigインターン2022夏</h3>
