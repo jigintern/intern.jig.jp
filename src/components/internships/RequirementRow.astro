@@ -1,0 +1,87 @@
+---
+interface Props {
+  heading: string;
+}
+
+const { heading } = Astro.props;
+// props 経由だと pre-line でも改行が反映されないため、ここで分割して表示する
+const headings = heading.split("\\n");
+---
+
+<tr>
+  <th>
+    {
+      headings.map((line) => (
+        <>
+          {line}
+          <br />
+        </>
+      ))
+    }
+  </th>
+  <td>
+    <slot />
+  </td>
+</tr>
+
+<style lang="scss">
+  tr {
+    th,
+    td {
+      border-top: 1px solid var(--color-action-tertiary);
+    }
+
+    @media (width > 720px) {
+      &:not(:first-child) th {
+        border-top-color: var(--color-bg-primary);
+      }
+    }
+
+    th {
+      width: 160px;
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.5;
+      background: var(--color-bg-secondary);
+    }
+
+    td {
+      padding: 24px;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.6;
+
+      :global(:where(p, ul, ol)) {
+        margin: 0;
+      }
+
+      :global(:where(ul, ol)) {
+        padding-left: 1.2em;
+      }
+    }
+
+    &:last-child th,
+    &:last-child td {
+      border-bottom: 1px solid var(--color-action-tertiary);
+    }
+
+    @media (width <= 720px) {
+      display: flex;
+      flex-direction: column;
+
+      th,
+      td {
+        padding: 16px;
+      }
+
+      th {
+        width: 100%;
+        font-size: 14px;
+      }
+
+      td {
+        font-size: 13px;
+      }
+    }
+  }
+</style>

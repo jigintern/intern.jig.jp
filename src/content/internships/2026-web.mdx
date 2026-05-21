@@ -1,0 +1,115 @@
+---
+order: 1
+title: "Webコース - サマーインターンシップ2026"
+status: "open"
+hasSelection: true
+shortSummary: "
+〜鯖江の古民家で過ごす、開発漬けの濃密な2週間〜\n
+Webブラウザ上で動作するアプリをチームで開発するコースです。\n
+福井県鯖江市の弊社開発センターで行う、開発力重視のプログラムです。
+"
+summary: "
+〜鯖江の古民家で過ごす、開発漬けの濃密な2週間〜\n
+Webブラウザ上で動作するアプリをチームで開発するコースです。\n
+福井県鯖江市の弊社開発センターで行う、開発力重視のプログラムです。\n
+前半の1週間で勉強会を行い、後半の1週間はチームに分かれて開発に挑みます。\n
+企画・設計から実装・発表までの一連のフローを、プロのエンジニアと同じ視点で一気通貫に経験していただきます。\n
+また、趣のある古民家での共同生活は、全国から集まる仲間たちとかけがえのない絆を育み、高専・大学生活最大の思い出になること間違いなし！
+"
+target: "
+・2週間で実践的な開発スキルを伸ばしたい方\n
+・福井県鯖江市での暮らし、働くことに興味がある方\n
+・企画・設計から実装・発表までの一連の開発フローを経験したい方
+"
+image: "/img/202605_banner_Web.png"
+---
+
+import RequirementRow from "../../components/internships/RequirementRow.astro";
+import RequirementsTable from "../../components/internships/RequirementsTable.astro";
+
+<RequirementsTable>
+  <RequirementRow heading="日付">2026/8/17(月)〜8/28(金)</RequirementRow>
+  <RequirementRow heading="時間">
+    9:00〜18:00（1日8時間、休憩12:00〜13:00）  
+    ※ 土・日を除きます  
+    ※ 平日の18:00以降、土・日に交流イベント等を実施する場合があります（自由参加）
+  </RequirementRow>
+  <RequirementRow heading="場所">
+    〒916-0036 福井県鯖江市横越町10-34-1  
+    株式会社jig.jp 開発センター
+  </RequirementRow>
+  <RequirementRow heading="対象">
+    2028年、2029年に卒業予定の学生（全国募集、学科・専攻不問）  
+    開発に使用できるノートパソコンを持っている方
+  </RequirementRow>
+  <RequirementRow heading="募集人数">16名</RequirementRow>
+  <RequirementRow heading="待遇・特典">
+    - 往復交通費、全額支給
+    - 宿泊費弊社負担（宿泊場所を用意します）
+    - 期間中の食事補助（一部） 
+    - 優秀者はエンジニア採用選考の一部をスキップ 
+    - Claude Code 1ヶ月分提供
+  </RequirementRow>
+  <RequirementRow heading="スケジュール">
+    **1週目：8/17(月)〜8/20(木)**  
+    (初日のみ) オリエンテーション、自己紹介、歓迎会  
+    Webアプリ開発のための勉強会
+    <br />
+    **1週目：8/21(金)**  
+    アイデア検討、チーム開発開始
+    <br />
+    **2週目：8/24(月)〜8/28(金)**  
+    チーム開発  
+    (最終日のみ) 発表会、振り返り、打ち上げ
+    <br />
+    <span style="color: var(--color-text-secondary)">※ 予定は変更になる可能性があります</span>
+  </RequirementRow>
+  <RequirementRow heading="エントリー期日">
+    2026/7/31(金) 18:00まで  
+    ※ 定員に達し次第、締切とさせていただきます
+  </RequirementRow>
+  <RequirementRow heading="選考概要">
+    下記の通り、進めさせていただきます。
+    <br />
+    1. エントリー  
+    本サイトのエントリーボタンより申し込みください。
+    <br />
+    2. 選考（GitHub・課題）  
+    下記の選考内容をご確認ください。
+    <br />
+    3. Zoom 面接  
+    担当スタッフと30分程度の面接を実施します。  
+    エントリー理由や開発経験などをお伺いします。
+    <br />
+    4. 選考結果連絡  
+    面接後、1週間以内に結果をご連絡いたします。
+  </RequirementRow>
+  <RequirementRow heading="選考内容">
+    エントリーいただいた後、下記の内容で選考させていただきます。
+    <br />
+    1. GitHub選考（任意）  
+    ご自身の開発された成果物をGitHubのリポジトリとしてご提出いただきます。 
+    <br />
+    2. 課題選考  
+    GitHub上に成果物がない、技術力を確認できない場合は下記の課題に取り組んでいただきます。
+    <br />
+    ■ 課題内容  
+    下記サイトを参考に、「しりとりアプリ」を実装してください。  
+    https://jigintern.github.io/summer-2025-assignment/  
+    <br />
+    {/* TODO: 課題提出用Googleフォーム */}
+    {/* <br />
+    Webブラウザ上で動作する「しりとりアプリ」を実装して提出していただきます。ソースコードをGitで管理し、GitHub上にpushして「リポジトリのURL」を提出してください。  
+    <br />
+    資料ではDenoを使用していますが、使用言語やフレームワークに制限はありませんので、得意な環境で取り組んでください。  
+    また、AIの活用については制限しません、積極的に活用してください。  
+    <br />
+    リポジトリには必ず、README.mdファイルを作成してください。以下の通りとします。  
+    
+    - Markdownを使用して作成すること
+    - 実装した機能やデザインの詳細な説明
+    - アプリの動作確認の方法（WebサイトのURLや、セットアップを含めたアプリケーションの実行手順等）
+    - 参考にしたWebサイト
+    -  (AIを使用した場合)どの部分に対して、どのように使用したか */}
+  </RequirementRow>
+</RequirementsTable>

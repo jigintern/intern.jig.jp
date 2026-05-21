@@ -1,0 +1,174 @@
+---
+import MessageImg from "../../assets/message_img.png";
+import { Picture } from "astro:assets";
+---
+
+<section class="message-section">
+  <div>
+    <p class="eyebrow">MESSAGE</p>
+    <h2>エンジニアとして<br />大きく成長したい人、募集中！</h2>
+    <p class="message">
+      jig.jpは「利用者に最も近いソフトウェアを提供し、より豊かな社会を実現する」を理念とし、「便利」で「楽しい」サービスを世に送り出しています。
+      <br />
+      私たちの最大の強みは、技術の進化をいち早くチャンスと捉える「スピーディな開発力」と、それを実現する「チーム力」です。
+      <br /><br />
+      「完璧に作ること」よりも「まず出して検証する」
+      <br />
+      そんなスピード感ある開発をこのインターンシップで体験してみませんか？
+      <br />
+      現役のエンジニアが講師やメンターとしてサポートするため、安心してチャレンジすることができます。
+      <br /><br />
+      全国から集まった皆さんと過ごす密度の濃いインターンは、思い出となること間違いなし！
+      <br />
+      皆さんの参加をお待ちしています。
+    </p>
+  </div>
+  <div class="message-img" data-message-reveal>
+    <Picture
+      src={MessageImg}
+      alt="インターンの様子"
+      formats={["avif", "webp"]}
+    />
+  </div>
+</section>
+
+<script>
+  (() => {
+    const initializeMessageReveal = () => {
+      const imageWrapper = document.querySelector("[data-message-reveal]");
+      if (!(imageWrapper instanceof HTMLElement)) return;
+
+      if (
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+        !("IntersectionObserver" in window)
+      ) {
+        imageWrapper.classList.add("is-visible");
+        return;
+      }
+
+      if (imageWrapper.dataset.jsInitialized === "true") return;
+      imageWrapper.dataset.jsInitialized = "true";
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+
+            imageWrapper.classList.add("is-visible");
+            observer.disconnect();
+          });
+        },
+        {
+          threshold: 0.2,
+          rootMargin: "0px 0px -10% 0px",
+        },
+      );
+
+      observer.observe(imageWrapper);
+    };
+
+    initializeMessageReveal();
+    document.addEventListener("astro:page-load", initializeMessageReveal);
+  })();
+</script>
+
+<style lang="scss">
+  .message-section {
+    display: grid;
+    grid-template-columns: minmax(400px, 680px) minmax(200px, 520px);
+    gap: 40px;
+    justify-content: center;
+    padding: 80px 20px;
+    overflow-x: hidden;
+    background: var(--color-bg-primary);
+
+    .message-img {
+      position: relative;
+      opacity: 0;
+      transform: translateY(48px);
+      transition:
+        opacity 0.7s ease,
+        transform 0.7s ease;
+
+      &.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      picture {
+        display: block;
+        width: auto;
+        height: 100%;
+      }
+    }
+
+    h2 {
+      margin-bottom: 32px;
+      font-size: 40px;
+      font-weight: 700;
+      line-height: 1.5;
+      color: var(--color-text-brand);
+    }
+
+    p + p {
+      margin-top: 8px;
+    }
+
+    .message {
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.6;
+    }
+  }
+
+  .eyebrow {
+    margin: 0;
+    font-family: Gabarito, sans-serif;
+    font-size: 32px;
+    line-height: 1.5;
+    color: var(--color-text-sub-title);
+    letter-spacing: 2px;
+  }
+
+  @media (width <= 720px) {
+    .message-section {
+      grid-template-rows: min-content auto;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      padding: 42px 14px;
+
+      .message-img {
+        img {
+          position: static;
+          display: block;
+          width: 90%;
+          height: auto;
+          margin: 0 auto;
+        }
+      }
+
+      h2 {
+        margin-bottom: 24px;
+        font-size: 24px;
+      }
+
+      .message {
+        font-size: 14px;
+      }
+    }
+
+    .eyebrow {
+      font-size: 24px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .message-section {
+      .message-img {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+    }
+  }
+</style>

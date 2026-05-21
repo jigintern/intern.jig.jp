@@ -1,0 +1,156 @@
+---
+import { Picture } from "astro:assets";
+import InfoBlogIcon from "../assets/icon/info_blog.svg";
+import InfoEmailIcon from "../assets/icon/info_email.svg";
+import InfoLineIcon from "../assets/icon/info_line.svg";
+import InfoLineQR from "../assets/info_line.png";
+import InfoXIcon from "../assets/icon/info_x.svg";
+
+interface Props {
+  backgroundColor?: string;
+  sectionClass?: string;
+  headingLevel?: "h2" | "h3";
+}
+
+const {
+  backgroundColor = "var(--color-bg-primary)",
+  sectionClass = "",
+  headingLevel = "h3",
+} = Astro.props;
+
+const HeadingTag = headingLevel;
+const sectionClasses = ["contact-section", sectionClass]
+  .filter(Boolean)
+  .join(" ");
+---
+
+<section
+  class={sectionClasses}
+  style={`--contact-section-bg: ${backgroundColor};`}
+>
+  <HeadingTag>お問い合わせ先</HeadingTag>
+  <div class="contact-grid">
+    <div class="mail-x-blog">
+      <a href="mailto:intern-info@jig.jp" class="text link">
+        <InfoEmailIcon class="icon" />
+        人事総務部 採用担当
+      </a>
+      <a
+        href="https://x.com/jigjp_recruit"
+        target="_blank"
+        rel="noreferrer"
+        class="text link"
+      >
+        <InfoXIcon class="icon" />
+        jig.jp 採用Xアカウント
+      </a>
+      <a
+        href="https://note.com/jigjp_recruit"
+        target="_blank"
+        rel="noreferrer"
+        class="text link"
+      >
+        <InfoBlogIcon class="icon" />
+        jig.jp 採用ブログ
+      </a>
+    </div>
+
+    <div class="line">
+      <div class="text">
+        <InfoLineIcon class="icon" />
+        LINEお問い合わせ
+      </div>
+      <Picture
+        src={InfoLineQR}
+        alt="line qr"
+        formats={["avif", "webp"]}
+        width={104}
+      />
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  .contact-section {
+    padding: 40px;
+    background: var(--contact-section-bg);
+    border-radius: 8px;
+
+    h2,
+    h3 {
+      padding-left: 16px;
+      margin-bottom: 24px;
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 1.5;
+      color: var(--color-text-brand);
+      border-left: 8px solid var(--color-text-brand);
+    }
+  }
+
+  .contact-grid {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 24px 64px;
+
+    .text {
+      display: flex;
+      align-items: center;
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 1.5;
+      color: var(--color-text-primary);
+      text-underline-offset: 3px;
+      transition: opacity 0.2s ease;
+    }
+
+    a.text:hover {
+      color: var(--color-text-brand);
+    }
+
+    .icon {
+      flex: 0 0 auto;
+      width: 32px;
+      height: 32px;
+      margin-right: 8px;
+      fill: var(--color-text-primary);
+    }
+  }
+
+  .mail-x-blog {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .line {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  @media (width <= 720px) {
+    .contact-section {
+      padding: 20px 16px;
+
+      h2,
+      h3 {
+        padding-left: 12px;
+        margin-bottom: 16px;
+        font-size: 20px;
+      }
+    }
+
+    .contact-grid {
+      .text {
+        font-size: 16px;
+      }
+
+      .icon {
+        width: 24px;
+        height: 24px;
+        margin-right: 6px;
+      }
+    }
+  }
+</style>

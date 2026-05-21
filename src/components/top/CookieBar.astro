@@ -1,0 +1,101 @@
+<aside class="cookie-bar" aria-label="Cookie の利用案内">
+  <div class="inner">
+    <p>
+      当ウェブサイトでは、サイトの利便性向上を目的に、クッキーを使用しております。また、サイト利用を継続することにより、クッキーの使用に同意するものとします。
+    </p>
+    <div class="button-container">
+      <button type="button" class="agree">同意する</button>
+      <button type="button" class="disagree">同意しない</button>
+    </div>
+  </div>
+</aside>
+
+<style lang="scss">
+  .cookie-bar {
+    position: sticky;
+    bottom: 0;
+    z-index: 100;
+    background: var(--color-bg-primary);
+    filter: drop-shadow(0 -4px 16px rgb(0 0 0 / 8%));
+  }
+
+  .inner {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1240px;
+    padding: 16px 20px;
+    margin: 0 auto;
+  }
+
+  .button-container {
+    display: flex;
+    gap: 8px;
+    margin-left: auto;
+
+    button {
+      min-width: 160px;
+      height: 40px;
+      font-size: 14px;
+      cursor: pointer;
+      border: 1px solid var(--color-action-tertiary);
+      border-radius: 6px;
+      transition: all 0.3s ease;
+
+      &.agree {
+        color: var(--color-text-brand);
+        background: var(--color-bg-primary);
+        border-color: var(--color-action-primary);
+
+        &:hover {
+          color: var(--color-text-inverse);
+          background: var(--color-action-primary);
+        }
+      }
+
+      &.disagree {
+        color: var(--color-text-secondary);
+        background: var(--color-bg-secondary);
+
+        &:hover {
+          color: var(--color-text-inverse);
+          background: var(--color-action-secondary-hover);
+        }
+      }
+    }
+  }
+
+  p {
+    max-width: 752px;
+    margin: 0;
+    font-size: 14px;
+    color: var(--color-text-primary);
+  }
+
+  @media (width <= 720px) {
+    .inner {
+      flex-direction: column;
+      gap: 12px;
+      align-items: stretch;
+      padding: 12px 16px;
+    }
+
+    p {
+      margin: 0;
+      font-size: 12px;
+    }
+
+    .button-container {
+      gap: 6px;
+      margin-left: 0;
+
+      button {
+        flex: 1;
+        min-width: auto;
+        height: 36px;
+        font-size: 13px;
+      }
+    }
+  }
+</style>

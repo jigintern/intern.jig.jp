@@ -1,0 +1,159 @@
+---
+import { Picture } from "astro:assets";
+import noImage from "../assets/noimage.png";
+import type { ImageMetadata } from "astro";
+
+interface Props {
+  title: string;
+  href: string;
+  image?: ImageMetadata;
+  date?: string;
+  compact?: boolean;
+}
+
+const { title, href, image, date, compact } = Astro.props;
+---
+
+<a
+  href={href}
+  target="_blank"
+  rel="noreferrer"
+  class:list={{ compact: compact }}
+>
+  <div class="thumbnail-frame">
+    <Picture
+      src={image ?? noImage}
+      alt="ブログサムネイル"
+      height={270}
+      width={480}
+      formats={["avif", "webp"]}
+      pictureAttributes={{ class: "thumbnail" }}
+    />
+  </div>
+  <div class="body">
+    {date && <p class="date">{date}</p>}
+    <p class="title">
+      {title}
+    </p>
+  </div>
+</a>
+
+<style lang="scss">
+  .thumbnail-frame {
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+
+  .thumbnail {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+
+    :global(img) {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      transform-origin: center;
+      transition: transform 0.2s ease;
+    }
+  }
+
+  a {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
+    text-decoration: none;
+    background: var(--color-bg-primary);
+    border: 1px solid var(--color-action-secondary-hover);
+    border-radius: 8px;
+    transition: all 0.2s ease;
+
+    &.compact {
+      flex-direction: row;
+
+      .thumbnail-frame {
+        width: initial;
+        height: 81px;
+
+        .thumbnail {
+          width: auto;
+          height: 100%;
+        }
+      }
+    }
+
+    &:hover {
+      .thumbnail :global(img) {
+        transform: scale(1.04);
+      }
+
+      background: var(--color-bg-tertiary);
+    }
+  }
+
+  .body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-height: 58px;
+
+    .title {
+      display: -webkit-box;
+      overflow: hidden;
+      -webkit-line-clamp: 3;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.6;
+      color: var(--color-text-primary);
+      -webkit-box-orient: vertical;
+    }
+  }
+
+  .date {
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--color-text-secondary);
+  }
+
+  @media (width <= 720px) {
+    a {
+      gap: 12px;
+      padding: 12px;
+
+      &.compact {
+        flex-direction: column;
+        gap: 12px;
+
+        .thumbnail-frame {
+          width: 100%;
+          height: auto;
+        }
+      }
+    }
+
+    .body {
+      min-height: auto;
+
+      > p:last-child {
+        -webkit-line-clamp: 2;
+        font-size: 14px;
+      }
+    }
+
+    .date {
+      font-size: 11px;
+    }
+  }
+
+  @media (width <= 1080px) {
+    .body {
+      > p:last-child {
+        font-size: 15px;
+      }
+    }
+  }
+</style>

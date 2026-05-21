@@ -1,0 +1,380 @@
+---
+import BlogResultCard from "./BlogResultCard.astro";
+import NoteBanner from "../assets/note-banner.png";
+import NoteBannerSp from "../assets/note-banner-sp.png";
+import { Picture } from "astro:assets";
+import { getCollection } from "astro:content";
+
+interface Props {
+  compact?: boolean;
+}
+
+const { compact = false } = Astro.props;
+
+const logs = (await getCollection("pastLogs")).sort((a, b) => {
+  return Number(a.id) - Number(b.id);
+});
+---
+
+<div class="past-archive" style={{ "--past-grid-columns": compact ? 2 : 3 }}>
+  <div class="past-tabs-shell" data-past-tabs-shell>
+    <div class="past-tabs" role="tablist" aria-label="過去インターンシップ年度">
+      {
+        logs.map((log, index) => (
+          <button
+            type="button"
+            class={`past-tab ${index === 0 ? "is-active" : ""}`}
+            data-past-tab={log.data.tabName}
+            aria-selected={index === 0 ? "true" : "false"}
+          >
+            {log.data.tabName}
+          </button>
+        ))
+      }
+    </div>
+  </div>
+
+  {
+    logs.map((log) => (
+      <div
+        class="blog-result-grid"
+        data-past-grid={log.data.tabName}
+        style={
+          log.data.tabName === logs[0]?.data.tabName ? "" : "display: none;"
+        }
+      >
+        {log.data.items.map((item) => (
+          <BlogResultCard
+            href={item.href}
+            title={item.title}
+            image={item.image}
+            compact={compact}
+          />
+        ))}
+      </div>
+    ))
+  }
+  <Picture
+    src={NoteBanner}
+    alt="note banner"
+    width={920}
+    formats={["avif", "webp"]}
+    pictureAttributes={{ class: "note-banner note-banner-pc" }}
+  />
+  <Picture
+    src={NoteBannerSp}
+    alt="note banner"
+    width={920}
+    formats={["avif", "webp"]}
+    pictureAttributes={{ class: "note-banner note-banner-sp" }}
+  />
+</div>
+
+<script is:inline>
+  const initializePastArchives = () => {
+    const archives = document.querySelectorAll(".past-archive");
+
+    archives.forEach((pastArchive) => {
+      if (pastArchive.dataset.jsInitialized === "true") return;
+      pastArchive.dataset.jsInitialized = "true";
+
+      const tabsShell = pastArchive.querySelector("[data-past-tabs-shell]");
+      const tabsList = pastArchive.querySelector(".past-tabs");
+      const tabs = Array.from(pastArchive.querySelectorAll("[data-past-tab]"));
+      const grids = Array.from(
+        pastArchive.querySelectorAll("[data-past-grid]"),
+      );
+
+      if (!tabsShell || !tabsList || tabs.length === 0 || grids.length === 0)
+        return;
+
+      const updateTabsFade = () => {
+        const maxScrollLeft = tabsList.scrollWidth - tabsList.clientWidth;
+        const isScrollable = maxScrollLeft > 1;
+        const canScrollLeft = tabsList.scrollLeft > 1;
+        const canScrollRight = tabsList.scrollLeft < maxScrollLeft - 1;
+
+        tabsShell.classList.toggle("is-scrollable", isScrollable);
+        tabsShell.classList.toggle(
+          "can-scroll-left",
+          isScrollable && canScrollLeft,
+        );
+        tabsShell.classList.toggle(
+          "can-scroll-right",
+          isScrollable && canScrollRight,
+        );
+      };
+
+      const scrollTabToCenter = (tab) => {
+        const maxScrollLeft = tabsList.scrollWidth - tabsList.clientWidth;
+        const targetScrollLeft = Math.max(
+          0,
+          Math.min(
+            maxScrollLeft,
+            tab.offsetLeft - (tabsList.clientWidth - tab.offsetWidth) / 2,
+          ),
+        );
+        const delta = targetScrollLeft - tabsList.scrollLeft;
+
+        if (Math.abs(delta) < 1) return;
+
+        tabsList.scrollBy({
+          left: delta,
+          behavior: "smooth",
+        });
+      };
+
+      let isMouseDown = false;
+      let isDragging = false;
+      let dragStartX = 0;
+      let dragStartScrollLeft = 0;
+      let suppressClick = false;
+
+      const clearDragState = () => {
+        isMouseDown = false;
+        isDragging = false;
+        tabsList.classList.remove("is-dragging");
+      };
+
+      tabsList.addEventListener("mousedown", (event) => {
+        if (event.button !== 0) return;
+
+        isMouseDown = true;
+        dragStartX = event.clientX;
+        dragStartScrollLeft = tabsList.scrollLeft;
+        suppressClick = false;
+      });
+
+      tabsList.addEventListener("mousemove", (event) => {
+        if (!isMouseDown) return;
+
+        const deltaX = event.clientX - dragStartX;
+
+        if (!isDragging && Math.abs(deltaX) > 6) {
+          isDragging = true;
+          suppressClick = true;
+          tabsList.classList.add("is-dragging");
+        }
+
+        if (!isDragging) return;
+
+        event.preventDefault();
+        tabsList.scrollLeft = dragStartScrollLeft - deltaX;
+      });
+
+      tabsList.addEventListener("mouseleave", () => {
+        if (!isMouseDown) return;
+        clearDragState();
+      });
+
+      window.addEventListener("mouseup", () => {
+        if (!isMouseDown) return;
+        clearDragState();
+      });
+
+      tabsList.addEventListener(
+        "click",
+        (event) => {
+          if (!suppressClick) return;
+
+          event.preventDefault();
+          event.stopPropagation();
+          suppressClick = false;
+        },
+        true,
+      );
+
+      const updatePastTab = (tabName) => {
+        tabs.forEach((tab) => {
+          const isActive = tab.getAttribute("data-past-tab") === tabName;
+          tab.classList.toggle("is-active", isActive);
+          tab.setAttribute("aria-selected", isActive ? "true" : "false");
+        });
+
+        grids.forEach((grid) => {
+          const isVisible = grid.getAttribute("data-past-grid") === tabName;
+          grid.style.display = isVisible ? "" : "none";
+        });
+      };
+
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", (event) => {
+          if (suppressClick) {
+            event.preventDefault();
+            suppressClick = false;
+            return;
+          }
+
+          updatePastTab(tab.getAttribute("data-past-tab") ?? "");
+          scrollTabToCenter(tab);
+        });
+      });
+
+      tabsList.addEventListener("scroll", updateTabsFade, { passive: true });
+      window.addEventListener("resize", updateTabsFade);
+      updateTabsFade();
+    });
+  };
+
+  initializePastArchives();
+  document.addEventListener("astro:page-load", initializePastArchives);
+</script>
+
+<style lang="scss">
+  .past-tabs-shell {
+    position: relative;
+  }
+
+  .past-tabs-shell::before,
+  .past-tabs-shell::after {
+    position: absolute;
+    top: 0;
+    bottom: 2px;
+    z-index: 1;
+    width: 40px;
+    pointer-events: none;
+    content: "";
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .past-tabs-shell::before {
+    left: 0;
+    background: linear-gradient(
+      90deg,
+      var(--color-bg-primary) 0%,
+      rgb(255 255 255 / 0%) 100%
+    );
+  }
+
+  .past-tabs-shell::after {
+    right: 0;
+    background: linear-gradient(
+      270deg,
+      var(--color-bg-primary) 0%,
+      rgb(255 255 255 / 0%) 100%
+    );
+  }
+
+  .past-tabs-shell.is-scrollable.can-scroll-left::before,
+  .past-tabs-shell.is-scrollable.can-scroll-right::after {
+    opacity: 1;
+  }
+
+  .past-tabs {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    cursor: grab;
+    scrollbar-width: none;
+    border-bottom: 2px solid var(--color-bg-inverse);
+    -ms-overflow-style: none;
+  }
+
+  .past-tabs.is-dragging {
+    scroll-behavior: auto;
+    cursor: grabbing;
+    user-select: none;
+  }
+
+  .past-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .past-tab {
+    flex: 0 0 auto;
+    min-width: 160px;
+    height: 56px;
+    padding: 0 16px;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.5;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    background: var(--color-bg-secondary);
+    border: 0;
+    border-radius: 6px 6px 0 0;
+    transition: background 0.2s ease;
+  }
+
+  .past-tab.is-active {
+    color: var(--color-text-inverse);
+    background: var(--color-action-secondary);
+  }
+
+  .blog-result-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--past-grid-columns), minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 32px;
+  }
+
+  .note-banner {
+    display: block;
+    width: fit-content;
+    max-width: 100%;
+    margin: 40px auto 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .note-banner :global(img) {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .note-banner:hover {
+    opacity: 0.76;
+  }
+
+  .past-tab:not(.is-active):hover {
+    background: var(--color-action-tertiary);
+  }
+
+  .note-banner-sp {
+    display: none;
+  }
+
+  @media (width <= 720px) {
+    .note-banner-pc {
+      display: none;
+    }
+
+    .note-banner-sp {
+      display: block;
+    }
+  }
+
+  @media (width <= 720px) {
+    .blog-result-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (width <= 720px) {
+    .past-tab {
+      min-width: 120px;
+      height: 44px;
+      padding: 0 12px;
+      font-size: 14px;
+    }
+
+    .blog-result-grid {
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .note-banner {
+      width: 100%;
+      max-width: 100%;
+      margin-top: 32px;
+    }
+
+    .note-banner :global(img) {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+    }
+  }
+</style>

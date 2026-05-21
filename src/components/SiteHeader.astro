@@ -1,0 +1,134 @@
+---
+import EntryButton from "./EntryButton.astro";
+import JigJpLogo from "../assets/icon/jigjp-logo.svg";
+
+interface Props {
+  type?: "default" | "first-view";
+  enableScrollTypeSwitch?: boolean;
+}
+
+const { type = "default", enableScrollTypeSwitch = false } = Astro.props;
+const topHref = import.meta.env.BASE_URL;
+---
+
+<header
+  data-header-type={type}
+  data-scroll-type-switch={enableScrollTypeSwitch ? "enabled" : undefined}
+>
+  <div class="inner">
+    <a class="top-link" href={topHref}>
+      <JigJpLogo class="logo" />
+      インターンシップ
+    </a>
+
+    <EntryButton />
+  </div>
+</header>
+
+<script is:inline>
+  (() => {
+    const updateHeaderType = () => {
+      const header = document.querySelector(
+        "[data-scroll-type-switch='enabled']",
+      );
+      if (!header) return;
+
+      header.setAttribute(
+        "data-header-type",
+        window.scrollY > 0 ? "default" : "first-view",
+      );
+    };
+
+    updateHeaderType();
+    document.addEventListener("astro:page-load", updateHeaderType);
+    window.addEventListener("scroll", updateHeaderType, { passive: true });
+  })();
+</script>
+
+<style lang="scss">
+  header {
+    position: fixed;
+    top: 0;
+    z-index: 20;
+    width: 100%;
+    height: var(--header-height);
+    overflow-x: auto;
+    background: var(--color-bg-primary);
+    transition:
+      background-color 0.2s ease,
+      border-color 0.2s ease,
+      color 0.2s ease;
+
+    --header-text-color: var(--color-text-primary);
+    --entry-button-bg: var(--color-action-primary);
+    --entry-button-bg-hover: var(--color-action-primary-hover);
+    --entry-button-text: var(--color-text-inverse);
+    --entry-button-text-hover: var(--color-text-inverse);
+    --entry-button-icon: var(--color-text-inverse);
+    --entry-button-border-hover: transparent;
+
+    &[data-header-type="first-view"] {
+      --header-text-color: var(--color-text-inverse);
+      --entry-button-bg: var(--color-bg-primary);
+      --entry-button-bg-hover: var(--color-action-primary);
+      --entry-button-text: var(--color-text-brand);
+      --entry-button-text-hover: var(--color-text-inverse);
+      --entry-button-icon: var(--color-text-brand);
+      --entry-button-border: var(--color-action-primary);
+      --entry-button-border-hover: solid 1px var(--color-action-inverse);
+
+      background: transparent;
+    }
+
+    .inner {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      justify-content: space-between;
+      min-width: max-content;
+      max-width: 1240px;
+      height: 100%;
+      padding: 0 20px;
+      margin: 0 auto;
+
+      .top-link {
+        display: inline-flex;
+        flex-shrink: 0;
+        gap: 16px;
+        align-items: center;
+        width: fit-content;
+        font-size: 20px;
+        line-height: 1.5;
+        color: var(--header-text-color);
+        text-decoration: none;
+        transition: opacity 0.2s ease;
+
+        &:hover {
+          opacity: 0.6;
+        }
+
+        .logo {
+          height: 40px;
+          fill: var(--header-text-color);
+        }
+      }
+    }
+  }
+
+  @media (width <= 720px) {
+    header {
+      .inner {
+        padding: 0 16px;
+
+        .top-link {
+          gap: 8px;
+          font-size: 12px;
+
+          .logo {
+            height: 28px;
+          }
+        }
+      }
+    }
+  }
+</style>

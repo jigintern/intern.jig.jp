@@ -1,0 +1,91 @@
+---
+import PastInternshipArchive from "../PastInternshipArchive.astro";
+---
+
+<section class="past-section">
+  <header class="archive-head">
+    <p class="eyebrow">ARCHIVE</p>
+    <h2>過去のインターンシップ（2012年〜）</h2>
+    <p class="archive-copy">
+      過去の参加者ブログから、実際の雰囲気をチェックできます！
+    </p>
+  </header>
+
+  <div class="archive-body">
+    <PastInternshipArchive />
+  </div>
+</section>
+
+<style lang="scss">
+  .archive-head {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .eyebrow {
+    margin: 0;
+    font-family: Gabarito, sans-serif;
+    font-size: 32px;
+    line-height: 1.5;
+    color: var(--color-text-sub-title);
+    letter-spacing: 2px;
+  }
+
+  .past-section {
+    padding: 80px 20px;
+    background: var(--color-bg-primary);
+
+    > * {
+      max-width: 1240px;
+      margin-inline: auto;
+    }
+
+    h2 {
+      margin-bottom: 32px;
+      font-size: 40px;
+      font-weight: 700;
+      line-height: 1.5;
+      color: var(--color-text-brand);
+    }
+  }
+
+  .archive-copy {
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.5;
+    color: var(--color-text-primary);
+  }
+
+  .archive-body {
+    max-width: 1240px;
+    margin-top: 32px;
+  }
+
+  @media (width <= 1080px) {
+    .past-section {
+      h2 {
+        font-size: 32px;
+      }
+    }
+  }
+
+  @media (width <= 720px) {
+    .past-section {
+      padding: 42px 14px;
+
+      h2 {
+        margin-bottom: 24px;
+        font-size: 24px;
+      }
+    }
+
+    .eyebrow {
+      font-size: 24px;
+    }
+
+    .archive-copy {
+      font-size: 14px;
+    }
+  }
+</style>

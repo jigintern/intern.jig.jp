@@ -1,0 +1,53 @@
+---
+import SiteFooter from "../components/SiteFooter.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import ContactInfoSection from "../components/ContactInfoSection.astro";
+import ArchiveSection from "../components/top/ArchiveSection.astro";
+import CookieBar from "../components/top/CookieBar.astro";
+import HeroSection from "../components/top/HeroSection.astro";
+import InternshipSection from "../components/top/InternshipSection.astro";
+import MessageSection from "../components/top/MessageSection.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const internships = (
+  await getCollection("internships", ({ data }) => data.status !== "hidden")
+).sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout>
+  <div class="page-shell">
+    <SiteHeader type="first-view" enableScrollTypeSwitch />
+
+    <HeroSection internships={internships} />
+    <MessageSection />
+    <InternshipSection internships={internships} />
+    <ArchiveSection />
+    <section class="index-contact-section">
+      <div class="index-contact-container">
+        <ContactInfoSection backgroundColor="var(--color-bg-tertiary)" />
+      </div>
+    </section>
+    <SiteFooter />
+    <CookieBar />
+  </div>
+</BaseLayout>
+
+<style>
+  .index-contact-section {
+    padding-bottom: 80px;
+    background: var(--color-bg-primary);
+  }
+
+  .index-contact-container {
+    max-width: 1240px;
+    padding: 0 20px;
+    margin: 0 auto;
+  }
+
+  @media (width <= 720px) {
+    .index-contact-section {
+      padding-bottom: 32px;
+    }
+  }
+</style>

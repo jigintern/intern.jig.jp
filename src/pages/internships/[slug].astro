@@ -1,0 +1,56 @@
+---
+import InternshipDetailLayout from "../../components/internships/InternshipDetailLayout.astro";
+import { getCollection, render } from "astro:content";
+import RequirementsTable from "../../components/internships/RequirementsTable.astro";
+import RequirementRow from "../../components/internships/RequirementRow.astro";
+export const getStaticPaths = async () => {
+  return (await getCollection("internships")).map((internship) => ({
+    params: { slug: internship.id },
+    props: {
+      internship,
+    },
+  }));
+};
+
+const { slug } = Astro.params;
+const { internship } = Astro.props;
+
+const { Content } = await render(internship);
+
+const stillOpen = await getCollection("internships", ({ data, id }) => {
+  return data.status === "open" && id !== slug;
+});
+---
+
+<InternshipDetailLayout internship={internship} stillOpen={stillOpen}>
+  <p class="recommend-copy" slot="recommendation">
+    {internship.data.target}
+  </p>
+
+  <Content
+    slot="requirements"
+    component={{ table: RequirementsTable, tr: RequirementRow }}
+  />
+</InternshipDetailLayout>
+
+<style lang="scss">
+  .muted-note {
+    color: var(--color-text-secondary);
+  }
+
+  .schedule-block {
+    p {
+      margin: 0;
+
+      + p {
+        margin-top: 4px;
+      }
+    }
+  }
+
+  hr {
+    margin: 14px 0;
+    border: 0;
+    border-top: 1px solid var(--color-action-tertiary);
+  }
+</style>
