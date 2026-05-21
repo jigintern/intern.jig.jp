@@ -1,9 +1,9 @@
 ---
 import BlogResultCard from "./BlogResultCard.astro";
-import NoteBanner from "../assets/note-banner.png";
-import NoteBannerSp from "../assets/note-banner-sp.png";
-import { Picture } from "astro:assets";
 import { getCollection } from "astro:content";
+// import NoteBanner from "../assets/note-banner.png";
+// import NoteBannerSp from "../assets/note-banner-sp.png";
+// import { Picture } from "astro:assets";
 
 interface Props {
   compact?: boolean;
@@ -54,7 +54,7 @@ const logs = (await getCollection("pastLogs")).sort((a, b) => {
       </div>
     ))
   }
-  <Picture
+  <!-- <Picture
     src={NoteBanner}
     alt="note banner"
     width={920}
@@ -67,7 +67,7 @@ const logs = (await getCollection("pastLogs")).sort((a, b) => {
     width={920}
     formats={["avif", "webp"]}
     pictureAttributes={{ class: "note-banner note-banner-sp" }}
-  />
+  /> -->
 </div>
 
 <script is:inline>
