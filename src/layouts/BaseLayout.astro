@@ -1,0 +1,119 @@
+---
+import { ClientRouter } from "astro:transitions";
+interface Props {
+  title?: string;
+  description?: string;
+  ogImageAbsoluteUrl?: string;
+}
+
+const {
+  title = "jigインターン / 高専生・学生向けjig.jpのインターンプログラム",
+  description = "高専生・学生向けjig.jpのインターンプログラム「jigインターン」 by 株式会社 jig.jp",
+  ogImageAbsoluteUrl,
+} = Astro.props;
+
+const baseUrl = import.meta.env.BASE_URL || "/";
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <base href={baseUrl} />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{title}</title>
+    <link rel="icon" href="favicon.ico" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {
+      ogImageAbsoluteUrl && (
+        <>
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta property="og:image" content={ogImageAbsoluteUrl} />
+          <meta name="twitter:image" content={ogImageAbsoluteUrl} />
+        </>
+      )
+    }
+    <ClientRouter />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style is:global lang="scss">
+  @import url("https://fonts.googleapis.com/css2?family=Gabarito:wght@600&family=Noto+Sans+JP:wght@100..900&display=swap");
+
+  :root {
+    --header-height: 80px;
+
+    /* Color - Text & Icon */
+    --color-text-primary: #302a2a;
+    --color-text-secondary: #8d8888;
+    --color-text-brand: #e04444;
+    --color-text-sub-title: #b8b7b7;
+    --color-text-inverse: #fff;
+    --color-text-disabled: #8d8888;
+
+    /* Color - Action */
+    --color-action-primary: #e04444;
+    --color-action-primary-hover: #9f0004;
+    --color-action-secondary: #302a2a;
+    --color-action-secondary-hover: #b8b7b7;
+    --color-action-tertiary: #cfcbcb;
+    --color-action-quaternary: #ededed;
+    --color-action-disabled: #e9e7e7;
+    --color-action-inverse: #fff;
+
+    /* Color - Background */
+    --color-bg-primary: #fff;
+    --color-bg-secondary: #e9e7e7;
+    --color-bg-tertiary: #f5f5f5;
+    --color-bg-brand: #e04444;
+    --color-bg-header: rgb(255 255 255 / 89%);
+    --color-bg-inverse: #302a2a;
+    --color-bg-line: #b8b7b7;
+    --color-bg-tag: #fbecec;
+  }
+
+  * {
+    box-sizing: border-box;
+    corner-shape: squircle;
+  }
+
+  body {
+    margin: 0;
+    font-family: "Noto Sans JP", sans-serif;
+    line-height: 1.6;
+    color: var(--color-text-primary);
+    background: var(--color-bg-tertiary);
+  }
+
+  .link {
+    color: inherit;
+
+    &:hover {
+      color: var(--color-text-brand);
+    }
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  p {
+    margin: 0;
+  }
+
+  .page-shell {
+    color: var(--color-text-primary);
+    background: var(--color-bg-tertiary);
+  }
+
+  @media (width <= 720px) {
+    :root {
+      --header-height: 60px;
+    }
+  }
+</style>

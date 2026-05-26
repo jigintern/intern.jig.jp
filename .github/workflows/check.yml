@@ -23,7 +23,11 @@ jobs:
       - name: Dependency installation
         run: pnpm install --frozen-lockfile
 
-      # TODO: vp check を入れる（現時点ではエラーが出るので保留）
+      - name: Format
+        run: pnpm format:check
+
+      - name: Lint
+        run: pnpm lint
 
       - name: Build
         run: pnpm build

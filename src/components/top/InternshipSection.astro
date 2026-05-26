@@ -1,0 +1,535 @@
+---
+import ArrowForwardIcon from "../../assets/icon/arrow_forward.svg";
+import InternshipCard from "./InternshipCard.astro";
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  internships: CollectionEntry<"internships">[];
+}
+
+type Category = "all" | "open" | "closed";
+
+const { internships } = Astro.props;
+const internshipFilters: { value: Category; label: string }[] = [
+  { value: "all", label: "すべて" },
+  { value: "open", label: "募集中" },
+  { value: "closed", label: "終了" },
+];
+const pageSize = 4;
+const pageCountByFilter: Record<Category, number> = {
+  all: Math.max(1, Math.ceil(internships.length / pageSize)),
+  open: Math.max(
+    1,
+    Math.ceil(
+      internships.filter((item) => item.data.status === "open").length /
+        pageSize,
+    ),
+  ),
+  closed: Math.max(
+    1,
+    Math.ceil(
+      internships.filter((item) => item.data.status === "closed").length /
+        pageSize,
+    ),
+  ),
+};
+const maxPageCount = pageCountByFilter.all;
+---
+
+<section class="internship-section container">
+  <div class="section-head">
+    <div>
+      <p class="eyebrow">INTERNSHIP</p>
+      <h2>インターンシップ一覧</h2>
+    </div>
+
+    <div
+      class="filter-toggle"
+      role="group"
+      aria-label="インターンシップ絞り込み"
+    >
+      {
+        internshipFilters.map((filter, index) => (
+          <button
+            type="button"
+            class={`filter-button ${index === 0 ? "is-active" : ""}`}
+            data-filter-button={filter.value}
+            aria-selected={index === 0 ? "true" : "false"}
+          >
+            {filter.label}
+          </button>
+        ))
+      }
+    </div>
+  </div>
+
+  <div class="internship-list">
+    {
+      internships.map((item) => (
+        <div
+          class="internship-row"
+          data-internship-row
+          data-status={item.data.status}
+        >
+          <InternshipCard internship={item} />
+        </div>
+      ))
+    }
+
+    <p class="internship-empty-message" data-internship-empty-message hidden>
+      該当するインターンシップはありません。
+    </p>
+  </div>
+
+  <div class="internship-pagination" data-internship-pagination hidden>
+    <div class="internship-page-numbers" data-page-numbers>
+      {
+        Array.from({ length: maxPageCount }, (_, index) => {
+          const page = index + 1;
+          return (
+            <button
+              type="button"
+              class={`internship-page-button ${page === 1 ? "is-active" : ""}`}
+              data-page-button={page}
+              aria-label={`${page}ページ目へ`}
+              aria-current={page === 1 ? "page" : "false"}
+            >
+              {page}
+            </button>
+          );
+        })
+      }
+    </div>
+    <div class="internship-page-numbers">
+      <button
+        type="button"
+        class="internship-page-nav"
+        data-page-nav="prev"
+        aria-label="前のページ"
+      >
+        <ArrowForwardIcon
+          rotate={180}
+          class="internship-page-arrow internship-page-arrow-prev"
+        />
+      </button>
+      <button
+        type="button"
+        class="internship-page-nav"
+        data-page-nav="next"
+        aria-label="次のページ"
+      >
+        <ArrowForwardIcon class="internship-page-arrow" />
+      </button>
+    </div>
+  </div>
+</section>
+
+<script>
+  const initializeInternshipSections = () => {
+    const sections = document.querySelectorAll<HTMLElement>(
+      ".internship-section",
+    );
+
+    sections.forEach((section) => {
+      if (section.dataset.jsInitialized === "true") return;
+      section.dataset.jsInitialized = "true";
+
+      const filterButtons = Array.from(
+        section.querySelectorAll<HTMLButtonElement>("[data-filter-button]"),
+      );
+      const internshipList =
+        section.querySelector<HTMLElement>(".internship-list");
+      const internshipRows = Array.from(
+        section.querySelectorAll<HTMLElement>("[data-internship-row]"),
+      );
+      const emptyMessage = section.querySelector<HTMLElement>(
+        "[data-internship-empty-message]",
+      );
+      const pagination = section.querySelector<HTMLElement>(
+        "[data-internship-pagination]",
+      );
+      const pageNumbers = pagination?.querySelector<HTMLElement>(
+        "[data-page-numbers]",
+      );
+      const prevButton = pagination?.querySelector<HTMLButtonElement>(
+        "[data-page-nav='prev']",
+      );
+      const nextButton = pagination?.querySelector<HTMLButtonElement>(
+        "[data-page-nav='next']",
+      );
+      const pageSize = 4;
+      const pageButtons = Array.from(
+        pagination?.querySelectorAll<HTMLButtonElement>("[data-page-button]") ??
+          [],
+      );
+      let activeFilter: "all" | "open" | "closed" = "all";
+      let currentPage = 1;
+
+      if (filterButtons.length === 0 || internshipRows.length === 0) return;
+
+      const scrollToListTop = () => {
+        if (!internshipList) return;
+
+        const headerHeight = Number.parseInt(
+          getComputedStyle(document.documentElement).getPropertyValue(
+            "--header-height",
+          ),
+          10,
+        );
+        const scrollTop =
+          internshipList.getBoundingClientRect().top +
+          window.scrollY -
+          (Number.isNaN(headerHeight) ? 0 : headerHeight) -
+          24;
+
+        window.scrollTo({
+          top: Math.max(0, scrollTop),
+          behavior: "smooth",
+        });
+      };
+
+      const getFilteredRows = () =>
+        internshipRows.filter((row) => {
+          const status = row.getAttribute("data-status");
+          return activeFilter === "all" || status === activeFilter;
+        });
+
+      const updatePageButtons = (totalPages: number) => {
+        if (!pageNumbers) return;
+
+        pageButtons.forEach((button) => {
+          const page = Number(button.getAttribute("data-page-button") ?? "0");
+          const isVisible = page > 0 && page <= totalPages;
+          const isActive = isVisible && page === currentPage;
+
+          button.hidden = !isVisible;
+          button.classList.toggle("is-active", isActive);
+          button.setAttribute("aria-current", isActive ? "page" : "false");
+        });
+      };
+
+      const renderInternships = () => {
+        const filteredRows = getFilteredRows();
+        const totalPages = Math.max(
+          1,
+          Math.ceil(filteredRows.length / pageSize),
+        );
+        const hasVisibleRows = filteredRows.length > 0;
+        currentPage = Math.min(currentPage, totalPages);
+        const startIndex = (currentPage - 1) * pageSize;
+        const visibleRows = filteredRows.slice(
+          startIndex,
+          startIndex + pageSize,
+        );
+
+        internshipRows.forEach((row) => {
+          row.hidden = true;
+        });
+        visibleRows.forEach((row) => {
+          row.hidden = false;
+        });
+
+        if (emptyMessage) {
+          emptyMessage.hidden = hasVisibleRows;
+        }
+
+        if (pagination) {
+          const shouldShowPagination = filteredRows.length > pageSize;
+          pagination.hidden = !shouldShowPagination;
+          if (prevButton)
+            prevButton.disabled = !shouldShowPagination || currentPage === 1;
+          if (nextButton)
+            nextButton.disabled =
+              !shouldShowPagination || currentPage === totalPages;
+        }
+
+        updatePageButtons(totalPages);
+      };
+
+      const updateFilter = (filter: "all" | "open" | "closed") => {
+        activeFilter = filter;
+        currentPage = 1;
+
+        filterButtons.forEach((button) => {
+          const isActive = button.getAttribute("data-filter-button") === filter;
+          button.classList.toggle("is-active", isActive);
+          button.setAttribute("aria-selected", isActive ? "true" : "false");
+        });
+
+        renderInternships();
+      };
+
+      filterButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const filter = button.getAttribute("data-filter-button");
+          if (filter === "all" || filter === "open" || filter === "closed") {
+            updateFilter(filter);
+          }
+        });
+      });
+
+      pageButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          currentPage = Number(button.getAttribute("data-page-button") ?? "1");
+          renderInternships();
+          requestAnimationFrame(scrollToListTop);
+        });
+      });
+
+      prevButton?.addEventListener("click", () => {
+        currentPage = Math.max(1, currentPage - 1);
+        renderInternships();
+        requestAnimationFrame(scrollToListTop);
+      });
+
+      nextButton?.addEventListener("click", () => {
+        const totalPages = Math.max(
+          1,
+          Math.ceil(getFilteredRows().length / pageSize),
+        );
+        currentPage = Math.min(totalPages, currentPage + 1);
+        renderInternships();
+        requestAnimationFrame(scrollToListTop);
+      });
+
+      renderInternships();
+    });
+  };
+
+  initializeInternshipSections();
+  document.addEventListener("astro:page-load", initializeInternshipSections);
+</script>
+
+<style lang="scss">
+  .container {
+    max-width: 1240px;
+    padding: 80px 20px;
+    margin: 0 auto;
+  }
+
+  .internship-section {
+    background: var(--color-bg-tertiary);
+
+    h2 {
+      margin-bottom: 32px;
+      font-size: 40px;
+      font-weight: 700;
+      line-height: 1.5;
+      color: var(--color-text-brand);
+    }
+  }
+
+  .eyebrow {
+    margin: 0;
+    font-family: Gabarito, sans-serif;
+    font-size: 32px;
+    line-height: 1.5;
+    color: var(--color-text-sub-title);
+    letter-spacing: 2px;
+  }
+
+  .section-head {
+    display: flex;
+    gap: 16px;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+
+  .filter-toggle {
+    display: flex;
+    align-items: stretch;
+    margin-bottom: 32px;
+  }
+
+  .filter-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 104px;
+    height: 40px;
+    padding: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--color-text-disabled);
+    cursor: pointer;
+    background: var(--color-bg-primary);
+    border: 1px solid var(--color-action-tertiary);
+
+    &:hover {
+      background: var(--color-bg-secondary);
+    }
+
+    &.is-active {
+      color: var(--color-text-inverse);
+      background: var(--color-action-secondary);
+      border-color: var(--color-action-secondary);
+    }
+
+    &:first-child {
+      border-right-width: 0;
+      border-radius: 6px 0 0 6px;
+    }
+
+    &:last-child {
+      border-left-width: 0;
+      border-radius: 0 6px 6px 0;
+    }
+  }
+
+  .internship-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .internship-row {
+    padding: 32px 0;
+    border-top: 1px solid var(--color-bg-secondary);
+
+    &:first-child {
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .internship-empty-message {
+    padding: 32px 0;
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--color-text-secondary);
+    text-align: center;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .internship-pagination {
+    display: flex;
+    gap: 8px 40px;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 40px;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .internship-page-numbers {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .internship-page-numbers .internship-page-button,
+  .internship-page-nav {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    font-family: "Noto Sans JP", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.3;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    background: var(--color-bg-primary);
+    border: 1px solid var(--color-action-tertiary);
+    border-radius: 4px;
+
+    &:hover {
+      background: var(--color-bg-secondary);
+    }
+
+    &.is-active {
+      color: var(--color-text-primary);
+      border-color: var(--color-action-secondary);
+    }
+  }
+
+  .internship-page-arrow {
+    width: 18px;
+    height: 18px;
+    fill: var(--color-text-secondary);
+  }
+
+  .internship-page-arrow-prev {
+    transform: rotate(180deg);
+  }
+
+  .internship-page-button {
+    &.is-active {
+      color: var(--color-text-inverse);
+      background: var(--color-action-secondary);
+      border-color: var(--color-action-secondary);
+    }
+
+    &:hover {
+      border-color: var(--color-action-secondary);
+    }
+  }
+
+  .internship-page-nav {
+    &:disabled {
+      color: var(--color-text-disabled);
+      cursor: not-allowed;
+      background: var(--color-action-disabled);
+      border-color: var(--color-action-disabled);
+
+      .internship-page-arrow {
+        fill: var(--color-text-disabled);
+      }
+    }
+
+    &:hover {
+      background-color: var(--color-bg-secondary);
+    }
+  }
+
+  @media (width <= 720px) {
+    .container {
+      padding: 42px 14px;
+    }
+
+    .eyebrow {
+      font-size: 24px;
+    }
+
+    .internship-section {
+      h2 {
+        margin-bottom: 24px;
+        font-size: 24px;
+      }
+    }
+
+    .section-head {
+      flex-direction: column;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .filter-toggle {
+      width: 100%;
+      margin-bottom: 24px;
+    }
+
+    .filter-button {
+      flex: 1 1 0;
+      width: auto;
+      height: 36px;
+      font-size: 13px;
+    }
+
+    .internship-pagination {
+      flex-wrap: wrap;
+    }
+  }
+</style>

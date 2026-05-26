@@ -1,0 +1,39 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  status: CollectionEntry<"internships">["data"]["status"];
+}
+
+const { status } = Astro.props;
+const label = status === "open" ? "募集中" : "終了";
+const className = status === "open" ? "is-open" : "is-closed";
+---
+
+<span class={className}>
+  {label}
+</span>
+
+<style lang="scss">
+  span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 74px;
+    padding: 2px 16px;
+    font-size: 14px;
+    line-height: 1.5;
+    cursor: default;
+    border-radius: 2px;
+
+    &.is-open {
+      color: var(--color-text-brand);
+      background: var(--color-bg-tag);
+    }
+
+    &.is-closed {
+      color: var(--color-text-secondary);
+      background: var(--color-bg-secondary);
+    }
+  }
+</style>
