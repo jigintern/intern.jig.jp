@@ -1,8 +1,7 @@
 ---
 import InternshipDetailLayout from "../../components/internships/InternshipDetailLayout.astro";
 import { getCollection, render } from "astro:content";
-import RequirementsTable from "../../components/internships/RequirementsTable.astro";
-import RequirementRow from "../../components/internships/RequirementRow.astro";
+
 export const getStaticPaths = async () => {
   return (await getCollection("internships")).map((internship) => ({
     params: { slug: internship.id },
@@ -27,10 +26,7 @@ const stillOpen = await getCollection("internships", ({ data, id }) => {
     {internship.data.target}
   </p>
 
-  <Content
-    slot="requirements"
-    component={{ table: RequirementsTable, tr: RequirementRow }}
-  />
+  <Content slot="requirements" />
 </InternshipDetailLayout>
 
 <style lang="scss">
