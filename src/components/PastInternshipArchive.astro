@@ -23,6 +23,7 @@ const logs = (await getCollection("pastLogs")).sort((a, b) => {
         logs.map((log, index) => (
           <button
             type="button"
+            role="tab"
             class={`past-tab ${index === 0 ? "is-active" : ""}`}
             data-past-tab={log.data.tabName}
             aria-selected={index === 0 ? "true" : "false"}
@@ -38,6 +39,7 @@ const logs = (await getCollection("pastLogs")).sort((a, b) => {
     logs.map((log) => (
       <div
         class="blog-result-grid"
+        role="tabpanel"
         data-past-grid={log.data.tabName}
         style={
           log.data.tabName === logs[0]?.data.tabName ? "" : "display: none;"
