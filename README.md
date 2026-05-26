@@ -22,7 +22,9 @@
 
 次の 5つの情報が必要です。
 
+- `order`: 一覧に表示される順番
 - `status`: `open` または `closed`
+- `hasSelection`: 選考あり or なし
 - `title`: タイトル
 - `summary`: 一覧カードに出る説明文
 - `target`: どんな人向けか
