@@ -1,9 +1,9 @@
 ---
 import BlogResultCard from "./BlogResultCard.astro";
 import { getCollection } from "astro:content";
-// import NoteBanner from "../assets/note-banner.png";
-// import NoteBannerSp from "../assets/note-banner-sp.png";
-// import { Picture } from "astro:assets";
+import NoteBanner from "../assets/note-banner.png";
+import NoteBannerSp from "../assets/note-banner-sp.png";
+import { Picture } from "astro:assets";
 
 interface Props {
   compact?: boolean;
@@ -56,20 +56,23 @@ const logs = (await getCollection("pastLogs")).sort((a, b) => {
       </div>
     ))
   }
-  <!-- <Picture
-    src={NoteBanner}
-    alt="note banner"
-    width={920}
-    formats={["avif", "webp"]}
-    pictureAttributes={{ class: "note-banner note-banner-pc" }}
-  />
-  <Picture
-    src={NoteBannerSp}
-    alt="note banner"
-    width={920}
-    formats={["avif", "webp"]}
-    pictureAttributes={{ class: "note-banner note-banner-sp" }}
-  /> -->
+
+  <a href="https://note.com/jigjp_recruit/n/n49b0cae03fb4">
+    <Picture
+      src={NoteBanner}
+      alt="採用担当によるまとめ記事はこちら"
+      width={920}
+      formats={["avif", "webp"]}
+      pictureAttributes={{ class: "note-banner note-banner-pc" }}
+    />
+    <Picture
+      src={NoteBannerSp}
+      alt="採用担当によるまとめ記事はこちら"
+      width={920}
+      formats={["avif", "webp"]}
+      pictureAttributes={{ class: "note-banner note-banner-sp" }}
+    />
+  </a>
 </div>
 
 <script is:inline>
