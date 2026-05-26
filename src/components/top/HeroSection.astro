@@ -127,11 +127,11 @@ const toInternshipHref = (id: string) =>
 
         embla.scrollTo(targetSnap);
       });
-
-      embla.on("select", updateEmblaDots);
-      embla.on("reInit", updateEmblaDots);
-      updateEmblaDots();
     });
+
+    embla.on("select", updateEmblaDots);
+    embla.on("reInit", updateEmblaDots);
+    updateEmblaDots();
   };
 
   initializeHeroSections();
