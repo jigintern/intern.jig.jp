@@ -7,25 +7,21 @@ interface Props {
 }
 
 const { internships } = Astro.props;
-const openInternships = internships.filter(
-  (item) => item.data.status === "open",
-);
 const heroSlides =
-  openInternships.length === 0
+  internships.length === 0
     ? []
     : Array.from(
         {
-          length:
-            Math.ceil(6 / openInternships.length) * openInternships.length,
+          length: Math.ceil(6 / internships.length) * internships.length,
         },
-        (_, i) => openInternships[i % openInternships.length],
+        (_, i) => internships[i % internships.length],
       );
 const toInternshipHref = (id: string) =>
   `${import.meta.env.BASE_URL}internships/${id}/`;
 ---
 
 <section class="hero">
-  <div class="embla" data-hero-count={openInternships.length}>
+  <div class="embla" data-hero-count={internships.length}>
     <div class="embla__viewport">
       <div class="embla__container">
         {
@@ -46,7 +42,7 @@ const toInternshipHref = (id: string) =>
   </div>
   <div class="pager-inline">
     {
-      openInternships.map((item, index) => (
+      internships.map((item, index) => (
         <button
           type="button"
           class={`pager-dot ${index === 0 ? "active" : ""}`}
